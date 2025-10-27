@@ -7,9 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $usuario = trim($_POST['usuario'] ?? '');
   $contrasena = trim($_POST['contrasena'] ?? '');
 
-  if (empty($usuario) || empty($contrasena)) {
-    header("Location: login.php?error=⚠️ Llena ambos campos.");
-    exit;
+  if (!$usuario || !$contrasena) {
+    header("Location: login.php?error=⚠️ Llena ambos campos."); exit;
   }
 
   $stmt = $conn->prepare("SELECT * FROM usuarios WHERE usuario = ?");
@@ -23,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (password_verify($contrasena, $fila['contrasena'])) {
       $continuar = true;
 
-      // Verificar si ya hay sesión activa
       if (!empty($fila['session_token'])) {
         $ultima = strtotime($fila['ultima_actividad']);
         $ahora = time();
@@ -59,12 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
       redirigir_segun_tipo($fila['tipo']);
     } else {
-      header("Location: login.php?error=❌ Contraseña incorrecta.");
-      exit;
+      header("Location: login.php?error=❌ Contraseña incorrecta."); exit;
     }
   } else {
-    header("Location: login.php?error=❌ Usuario no encontrado.");
-    exit;
+    header("Location: login.php?error=❌ Usuario no encontrado."); exit;
   }
 
   $stmt->close();
