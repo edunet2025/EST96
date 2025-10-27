@@ -26,8 +26,9 @@ $error = $_GET['error'] ?? '';
       <p class="sub">“Miguel Alemán Valdés”</p>
 
       <form action="verificar_login.php" method="POST" class="formulario-login">
-        <input type="text" name="usuario" placeholder="Usuario" required>
-        <input type="password" name="contrasena" placeholder="Contraseña" required>
+      <input type="text" name="usuario" placeholder="Usuario" required autocomplete="username">
+       <input type="password" name="contrasena" placeholder="Contraseña" required autocomplete="current-password">
+
 
         <button type="submit" class="btn-login">Ingresar</button>
         <a href="index.php" class="btn-volver">Volver al inicio</a>
