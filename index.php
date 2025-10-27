@@ -51,7 +51,7 @@ $portada_img = "img/portada_mes.jpg"; // asegúrate de tener esta imagen en /img
       <iframe class="map"
         src="https://maps.app.goo.gl/HF9RXMi4mjFNEcxt9"
         loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de la escuela"></iframe>
-      <p class="note">Col. Ajusco, Alcaldía Álvaro Obregón, CDMX</p>
+      <p class="note">Guadalupe Victoria 60, Ampliacion San Miguel Ajusco, Tlalpan, 14710 Ciudad de México, CDMX</p>
     </article>
   </section>
 
