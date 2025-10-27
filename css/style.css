@@ -1,0 +1,226 @@
+/* 🎨 COLORES INSTITUCIONALES */
+:root {
+    --vino: #6b1b1b;
+    --beige: #f5e6c4;
+    --cafe: #3e2723;
+    --blanco: #ffffff;
+  }
+  
+  /* RESETEO Y BASE */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--beige);
+    color: var(--cafe);
+    line-height: 1.6;
+  }
+  
+  /* HEADER */
+  .header {
+    background-color: var(--vino);
+    color: var(--blanco);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .logo {
+    width: 60px;
+    height: auto;
+  }
+  
+  .school-name h1 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .school-name p {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  
+  /* NAVEGACIÓN */
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-links a {
+    color: var(--blanco);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .nav-links a:hover {
+    color: var(--beige);
+  }
+  
+  .menu-toggle {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  
+  /* HERO */
+  .hero {
+    background: linear-gradient(rgba(107, 27, 27, 0.85), rgba(107, 27, 27, 0.85)),
+                url('../img/fondo.jpg') center/cover no-repeat;
+    color: var(--blanco);
+    text-align: center;
+    padding: 6rem 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .btn {
+    background-color: var(--beige);
+    color: var(--vino);
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: var(--cafe);
+    color: var(--blanco);
+  }
+  
+  /* INFO SECTION */
+  .info {
+    text-align: center;
+    background-color: var(--blanco);
+    margin: 2rem;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .info h2 {
+    color: var(--vino);
+    margin-bottom: 1rem;
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.2rem;
+  }
+  
+  .social-btn {
+    background-color: var(--vino);
+    color: var(--beige);
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  
+  .social-btn:hover {
+    background-color: var(--cafe);
+  }
+  
+  /* FOOTER */
+  .footer {
+    background-color: var(--vino);
+    color: var(--blanco);
+    padding: 2rem 1rem;
+    margin-top: 3rem;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .footer-section h3 {
+    border-bottom: 2px solid var(--beige);
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+  }
+  
+  .footer-section ul li a {
+    color: var(--blanco);
+    text-decoration: none;
+  }
+  
+  .footer-section ul li a:hover {
+    color: var(--beige);
+  }
+  
+  .footer .social-links {
+    justify-content: flex-start;
+  }
+  
+  .footer .social-btn {
+    background-color: var(--beige);
+    color: var(--vino);
+  }
+  
+  .footer .social-btn:hover {
+    background-color: var(--cafe);
+    color: var(--blanco);
+  }
+  
+  .footer p {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      text-align: center;
+      background-color: var(--vino);
+      padding: 1rem 0;
+    }
+  
+    .nav-links.active {
+      display: flex;
+    }
+  
+    .menu-toggle {
+      display: block;
+    }
+  
+    .footer-content {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  
