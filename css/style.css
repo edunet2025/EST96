@@ -1,226 +1,276 @@
-/* 🎨 COLORES INSTITUCIONALES */
 :root {
-    --vino: #6b1b1b;
-    --beige: #f5e6c4;
-    --cafe: #3e2723;
-    --blanco: #ffffff;
-  }
-  
-  /* RESETEO Y BASE */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: "Poppins", sans-serif;
-    background-color: var(--beige);
-    color: var(--cafe);
-    line-height: 1.6;
-  }
-  
-  /* HEADER */
-  .header {
-    background-color: var(--vino);
-    color: var(--blanco);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    flex-wrap: wrap;
-  }
-  
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .logo {
-    width: 60px;
-    height: auto;
-  }
-  
-  .school-name h1 {
-    font-size: 1.2rem;
-    margin: 0;
-  }
-  
-  .school-name p {
-    font-size: 0.9rem;
-    margin: 0;
-  }
-  
-  /* NAVEGACIÓN */
+  --vino: #5a0d0d;
+  --beige: #f2e8d5;
+  --cafe: #3e2a1f;
+  --blanco: #ffffff;
+}
+
+/* ===== RESETEO ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--beige);
+  color: var(--cafe);
+  line-height: 1.6;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background-color: var(--vino);
+  color: var(--blanco);
+  padding: 0.8rem 1.5rem;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  width: 65px;
+  height: auto;
+}
+
+.school-title h1 {
+  font-size: 1.1rem;
+}
+
+.school-title p {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--beige);
+}
+
+/* ===== NAV ===== */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--blanco);
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--beige);
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* ===== MAIN ===== */
+.main-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* ===== HOME SECTIONS ===== */
+.home-section {
+  background-color: var(--blanco);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.center-text {
+  text-align: center;
+}
+
+.home-section h1 {
+  color: var(--vino);
+  margin-bottom: 1rem;
+  font-size: 1.7rem;
+}
+
+.lead {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--cafe);
+}
+
+/* ===== PORTADA DEL MES ===== */
+.portada {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  background-color: var(--vino);
+  color: var(--beige);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.portada h3 {
+  color: var(--vino);
+  margin-bottom: 0.6rem;
+}
+
+.portada p {
+  margin-bottom: 1rem;
+}
+
+.banner {
+  width: 100%;
+  max-width: 850px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ===== REDES ===== */
+.social-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.social-row a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--vino);
+  font-weight: 500;
+}
+
+.social-row a:hover {
+  color: var(--cafe);
+}
+
+.ico {
+  width: 24px;
+  height: 24px;
+}
+
+/* ===== MAPA ===== */
+.map {
+  width: 100%;
+  height: 350px;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.note {
+  font-size: 0.9rem;
+  color: var(--cafe);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background-color: var(--vino);
+  color: var(--blanco);
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footer-section h3 {
+  border-bottom: 2px solid var(--beige);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.7rem;
+  font-size: 1rem;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.4rem;
+}
+
+.footer-section ul li a {
+  color: var(--blanco);
+  text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+  color: var(--beige);
+}
+
+.redes-icons img {
+  width: 28px;
+  margin-right: 8px;
+  opacity: 0.85;
+  transition: 0.3s;
+}
+
+.redes-icons img:hover {
+  opacity: 1;
+}
+
+.copy {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  padding-top: 1rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
   .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .nav-links a {
-    color: var(--blanco);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
-  
-  .nav-links a:hover {
-    color: var(--beige);
-  }
-  
-  .menu-toggle {
     display: none;
-    font-size: 2rem;
-    cursor: pointer;
-  }
-  
-  /* HERO */
-  .hero {
-    background: linear-gradient(rgba(107, 27, 27, 0.85), rgba(107, 27, 27, 0.85)),
-                url('../img/fondo.jpg') center/cover no-repeat;
-    color: var(--blanco);
-    text-align: center;
-    padding: 6rem 1rem;
-  }
-  
-  .hero h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-  }
-  
-  .hero p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .btn {
-    background-color: var(--beige);
-    color: var(--vino);
-    padding: 0.8rem 1.5rem;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-  }
-  
-  .btn:hover {
-    background-color: var(--cafe);
-    color: var(--blanco);
-  }
-  
-  /* INFO SECTION */
-  .info {
-    text-align: center;
-    background-color: var(--blanco);
-    margin: 2rem;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-  
-  .info h2 {
-    color: var(--vino);
-    margin-bottom: 1rem;
-  }
-  
-  .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1.2rem;
-  }
-  
-  .social-btn {
+    flex-direction: column;
     background-color: var(--vino);
-    color: var(--beige);
-    padding: 0.6rem 1.2rem;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: 0.3s;
+    text-align: center;
+    width: 100%;
+    padding: 1rem 0;
   }
-  
-  .social-btn:hover {
-    background-color: var(--cafe);
-  }
-  
-  /* FOOTER */
-  .footer {
-    background-color: var(--vino);
-    color: var(--blanco);
-    padding: 2rem 1rem;
-    margin-top: 3rem;
-  }
-  
-  .footer-content {
+
+  .nav-links.active {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 2rem;
   }
-  
-  .footer-section h3 {
-    border-bottom: 2px solid var(--beige);
-    padding-bottom: 0.3rem;
-    margin-bottom: 1rem;
-  }
-  
-  .footer-section ul {
-    list-style: none;
-  }
-  
-  .footer-section ul li a {
-    color: var(--blanco);
-    text-decoration: none;
-  }
-  
-  .footer-section ul li a:hover {
+
+  .menu-toggle {
+    display: block;
     color: var(--beige);
   }
-  
-  .footer .social-links {
-    justify-content: flex-start;
-  }
-  
-  .footer .social-btn {
-    background-color: var(--beige);
-    color: var(--vino);
-  }
-  
-  .footer .social-btn:hover {
-    background-color: var(--cafe);
-    color: var(--blanco);
-  }
-  
-  .footer p {
+
+  .footer-container {
+    flex-direction: column;
     text-align: center;
-    margin-top: 2rem;
-    font-size: 0.9rem;
   }
-  
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-      flex-direction: column;
-      width: 100%;
-      text-align: center;
-      background-color: var(--vino);
-      padding: 1rem 0;
-    }
-  
-    .nav-links.active {
-      display: flex;
-    }
-  
-    .menu-toggle {
-      display: block;
-    }
-  
-    .footer-content {
-      flex-direction: column;
-      text-align: center;
-    }
+
+  .map {
+    height: 300px;
   }
-  
+}
