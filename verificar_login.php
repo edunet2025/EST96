@@ -18,7 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   if ($resultado->num_rows === 1) {
     $fila = $resultado->fetch_assoc();
-
+    echo "<pre>";
+    echo "Contraseña ingresada: " . htmlspecialchars($contrasena) . "\n";
+    echo "Hash almacenado: " . htmlspecialchars($fila['contrasena']) . "\n";
+    echo "Verificación: ";
+    var_dump(password_verify($contrasena, $fila['contrasena']));
+    echo "</pre>";
+    exit;    
     if (password_verify($contrasena, $fila['contrasena'])) {
       $continuar = true;
 
