@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="cambiar-card">
       <img src="img/logo.png" alt="Logo Escuela" class="logo-login">
       <h2>Restablecer contraseña</h2>
-      <p>Hola <strong><?= htmlspecialchars($nombre) ?></strong>, por seguridad debes establecer una nueva contraseña para continuar.</p>
+      <p>Hola <strong><?= htmlspecialchars($usuario) ?></strong>, por seguridad debes establecer una nueva contraseña para continuar.</p>
 
       <form method="POST">
         <input type="password" name="nueva" placeholder="Nueva contraseña" required>
