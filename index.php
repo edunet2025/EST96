@@ -49,7 +49,7 @@ $portada_img = "img/portada_mes.jpg"; // asegúrate de tener esta imagen en /img
     <article class="home-card">
       <h3>📍 ¿Cómo llegar?</h3>
       <iframe class="map"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.352466113045!2d-99.2085206256678!3d19.39640514286108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff7a23cb03a3%3A0x9f8376e716dff3b!2sEscuela%20Secundaria%20T%C3%A9cnica%20No.%2096%20Miguel%20Alem%C3%A1n%20Vald%C3%A9s!5e0!3m2!1ses!2smx!4v1698334476015!5m2!1ses!2smx"
+        src="https://maps.app.goo.gl/HF9RXMi4mjFNEcxt9"
         loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de la escuela"></iframe>
       <p class="note">Col. Ajusco, Alcaldía Álvaro Obregón, CDMX</p>
     </article>
