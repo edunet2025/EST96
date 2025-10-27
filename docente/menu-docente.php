@@ -48,7 +48,7 @@ if (isset($_SESSION['usuario'])) {
     <section class="panel-datos">
       <h2>👤 Información del docente</h2>
       <div class="foto-docente">
-        <img id="fotoDocente" src="../img/default1.jpg" alt="Foto del docente">
+        <img id="fotoDocente" src="img/default1.jpg" alt="Foto del docente">
       </div>
 
       <div class="datos-grid">
