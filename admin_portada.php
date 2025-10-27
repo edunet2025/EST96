@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (empty($_SESSION["admin_logged"])) {
+  header("Location: admin_login.php");
+  exit;
+}
+
 $dataFile = "data/portada.json";
 $uploadDir = "uploads/";
 
@@ -7,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $descripcion = trim($_POST["descripcion"]);
   $imagen = "";
 
-  // Subir nueva imagen si existe
   if (!empty($_FILES["imagen"]["name"])) {
     $fileName = "portada_" . time() . "_" . basename($_FILES["imagen"]["name"]);
     $targetFile = $uploadDir . $fileName;
@@ -17,13 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
   }
 
-  // Si no se subió nueva imagen, conservar la anterior
   $oldData = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
   if (empty($imagen) && !empty($oldData["imagen"])) {
     $imagen = $oldData["imagen"];
   }
 
-  // Guardar nueva información
   $data = [
     "titulo" => $titulo,
     "descripcion" => $descripcion,
@@ -33,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $mensaje = "✅ Portada actualizada correctamente.";
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -51,9 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
-    .admin-container h2 {
+    .top-bar {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    h2 {
       color: var(--vino);
-      text-align: center;
       margin-bottom: 1rem;
     }
     label {
@@ -70,9 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       font-size: 1rem;
     }
     textarea { resize: vertical; height: 100px; }
-    input[type="file"] {
-      margin-top: 0.5rem;
-    }
+    input[type="file"] { margin-top: 0.5rem; }
     button {
       margin-top: 1.5rem;
       background-color: var(--vino);
@@ -85,11 +87,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     button:hover { background-color: var(--cafe); }
     .msg { text-align: center; margin-top: 1rem; color: green; font-weight: bold; }
+    .logout-link { text-decoration: none; color: var(--vino); font-weight: bold; }
+    .logout-link:hover { color: var(--cafe); }
   </style>
 </head>
 <body>
   <div class="admin-container">
-    <h2>Actualizar Portada del Mes</h2>
+    <div class="top-bar">
+      <h2>Actualizar Portada del Mes</h2>
+      <a class="logout-link" href="admin_logout.php">Cerrar sesión</a>
+    </div>
     <?php if (!empty($mensaje)) echo "<p class='msg'>$mensaje</p>"; ?>
     <form method="POST" enctype="multipart/form-data">
       <label>Título:</label>
