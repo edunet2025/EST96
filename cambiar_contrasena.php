@@ -22,25 +22,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mensaje = "⚠️ La contraseña debe tener al menos 6 caracteres.";
       } else {
         $hash = password_hash($nueva, PASSWORD_BCRYPT);
+      
+        // 1️⃣ Actualizar contraseña y limpiar token
         $stmt = $conn->prepare("UPDATE usuarios 
-                                SET contrasena = ?, must_change_pass = 0, last_password_change = NOW() 
-                                WHERE id = ?");
+          SET contrasena = ?, must_change_pass = 0, last_password_change = NOW(), session_token = NULL 
+          WHERE id = ?");
         $stmt->bind_param("si", $hash, $id);
         $stmt->execute();
         $stmt->close();
-
-        // Iniciar sesión normal
-        unset($_SESSION['usuario_tmp'], $_SESSION['id_tmp'], $_SESSION['tipo_tmp']);
+      
+        // 2️⃣ Destruir cualquier sesión previa
+        session_unset();
+        session_destroy();
+        session_start();
+      
+        // 3️⃣ Reabrir sesión limpia y crear nuevo token
+        $token = bin2hex(random_bytes(32));
         $_SESSION['usuario'] = $usuario;
         $_SESSION['id'] = $id;
         $_SESSION['tipo'] = $tipo;
-        $_SESSION['session_token'] = bin2hex(random_bytes(32));
-        $conn->query("UPDATE usuarios SET session_token = '{$_SESSION['session_token']}', ultima_actividad = NOW() WHERE id = $id");
-
-        // Redirigir según tipo
+        $_SESSION['session_token'] = $token;
+        $conn->query("UPDATE usuarios SET session_token = '$token', ultima_actividad = NOW() WHERE id = $id");
+      
+        // 4️⃣ Redirigir según el tipo
         require_once("includes/funciones_login.php");
         redirigir_segun_tipo($tipo);
       }
+      
     } else {
       $mensaje = "❌ Las contraseñas no coinciden.";
     }
