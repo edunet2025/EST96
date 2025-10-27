@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once("conexion.php");
+require_once("includes/funciones_login.php");
 
 if (!isset($_SESSION['usuario_tmp']) || !isset($_SESSION['id_tmp'])) {
   header("Location: login.php");
@@ -22,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mensaje = "⚠️ La contraseña debe tener al menos 6 caracteres.";
       } else {
         $hash = password_hash($nueva, PASSWORD_BCRYPT);
-      
+
         // 1️⃣ Actualizar contraseña y limpiar token
         $stmt = $conn->prepare("UPDATE usuarios 
           SET contrasena = ?, must_change_pass = 0, last_password_change = NOW(), session_token = NULL 
@@ -30,25 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bind_param("si", $hash, $id);
         $stmt->execute();
         $stmt->close();
-      
-        // 2️⃣ Destruir cualquier sesión previa
-        session_unset();
-        session_destroy();
-        session_start();
-      
-        // 3️⃣ Reabrir sesión limpia y crear nuevo token
-        $token = bin2hex(random_bytes(32));
-        $_SESSION['usuario'] = $usuario;
-        $_SESSION['id'] = $id;
-        $_SESSION['tipo'] = $tipo;
-        $_SESSION['session_token'] = $token;
-        $conn->query("UPDATE usuarios SET session_token = '$token', ultima_actividad = NOW() WHERE id = $id");
-      
-        // 4️⃣ Redirigir según el tipo
-        require_once("includes/funciones_login.php");
-        redirigir_segun_tipo($tipo);
+
+        // 2️⃣ Cerrar sesión completamente (igual que logout)
+        cerrar_sesion_completa($conn, $id);
+
+        // 3️⃣ Redirigir al login con mensaje de éxito
+        header("Location: login.php?mensaje=✅ Contraseña actualizada correctamente. Inicia sesión con tu nueva contraseña.");
+        exit;
       }
-      
     } else {
       $mensaje = "❌ Las contraseñas no coinciden.";
     }
