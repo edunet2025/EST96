@@ -1,0 +1,97 @@
+
+:root {
+    --vino: #5a0d0d;
+    --beige: #f2e8d5;
+    --cafe: #3e2a1f;
+    --blanco: #ffffff;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--beige);
+    color: var(--cafe);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .login-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-card {
+    background-color: var(--blanco);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+  }
+  
+  .logo-login {
+    width: 80px;
+    margin-bottom: 1rem;
+  }
+  
+  h2 {
+    color: var(--vino);
+    margin-bottom: 0.2rem;
+  }
+  
+  .sub {
+    font-style: italic;
+    color: var(--cafe);
+    margin-bottom: 1.5rem;
+  }
+  
+  .formulario-login input {
+    width: 100%;
+    padding: 0.7rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .btn-login {
+    background-color: var(--vino);
+    color: var(--beige);
+    border: none;
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: 0.3s;
+  }
+  
+  .btn-login:hover {
+    background-color: var(--cafe);
+  }
+  
+  .btn-volver {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--vino);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .btn-volver:hover {
+    text-decoration: underline;
+  }
+  
+  .mensaje-error {
+    color: red;
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  
