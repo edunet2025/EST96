@@ -1,73 +1,71 @@
 <?php
-require_once __DIR__ . '/../../../conexion.php';
-require_once __DIR__ . '/../../utils/correo.php';
-date_default_timezone_set('America/Mexico_City');
-header('Content-Type: application/json; charset=utf-8');
+header("Content-Type: application/json; charset=utf-8");
+require_once("../../conexion.php");
+require_once("../../utils/correo.php");
 
+$data = json_decode(file_get_contents("php://input"), true);
+
+if (!$data || empty($data['docente']) || empty($data['alumnos'])) {
+  echo json_encode(["ok" => false, "error" => "Datos incompletos"]);
+  exit;
+}
+
+$docente = $data['docente'];
+$prefecto = $data['prefecto'] ?? 'Automático';
+$clase = $data['clase'] ?? '';
+$hora = $data['hora'] ?? '';
+$contenido = $data['contenido'] ?? '';
+$alumnos = $data['alumnos'] ?? [];
+
+// 1️⃣ Crear nuevo folio
+$conn->begin_transaction();
 try {
-  $data = json_decode(file_get_contents("php://input"), true);
-  if (!$data) throw new Exception("Datos inválidos");
+  $folio = 1;
+  $res = $conn->query("SELECT MAX(folio) AS max_folio FROM reportes");
+  if ($r = $res->fetch_assoc()) $folio = intval($r['max_folio']) + 1;
 
-  $docente  = $data['docente'] ?? [];
-  $prefecto = $data['prefecto'] ?? 'N/A';
-  $clase    = trim($data['clase'] ?? '');
-  $hora     = trim($data['hora'] ?? '');
-  $contenido= trim($data['contenido'] ?? '');
-  $alumnos  = $data['alumnos'] ?? [];
-  if (!$docente || empty($alumnos)) throw new Exception("Datos incompletos");
+  // 2️⃣ Insertar cada alumno (todos comparten el mismo folio)
+  $stmt = $conn->prepare("INSERT INTO reportes 
+    (folio, matricula_docente, nombre_docente, matricula_alumno, nombre_alumno,
+     grado, grupo, clase, hora, contenido, registrado_por, tipo_origen)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'docente')");
 
-  $conn->begin_transaction();
-
-  // Folio secuencial
-  $res = $conn->query("SELECT IFNULL(MAX(folio),0)+1 AS nuevo FROM reportes");
-  $folio = $res->fetch_assoc()['nuevo'];
-
-  $sql = "INSERT INTO reportes 
-          (folio, matricula_docente, nombre_docente, matricula_alumno, nombre_alumno,
-           grado, grupo, clase, hora, contenido, registrado_por, tipo_origen, estado, creado_en)
-          VALUES (?,?,?,?,?,?,?,?,?,?,?,?, 'enviado', NOW())";
-  $stmt = $conn->prepare($sql);
-
-  foreach ($alumnos as $al) {
-    $stmt->bind_param(
-      "issssisssss",
+  foreach ($alumnos as $a) {
+    $stmt->bind_param("isssssissss",
       $folio,
       $docente['usuario'],
       $docente['nombre'],
-      $al['matricula'],
-      $al['nombre'],
-      $al['grado'],
-      $al['grupo'],
+      $a['matricula'],
+      $a['nombre'],
+      $a['grado'],
+      $a['grupo'],
       $clase,
       $hora,
       $contenido,
-      $prefecto,
-      'docente'
+      $prefecto
     );
     $stmt->execute();
   }
 
   $conn->commit();
 
-  $recibo_url = "https://miguelaleman.edunet.com.mx/docente/recibo.php?folio=$folio";
+  // 3️⃣ Enviar correo
+  $correoDocente = obtenerCorreoDocente($conn, $docente['usuario']);
+  $urlRecibo = "https://miguelaleman.edunet.com.mx/backend/api/reportes/recibo.php?folio=$folio";
+  enviarCorreoReporte($correoDocente, $docente['nombre'], $folio, $urlRecibo);
 
-  $asunto = "📋 Comprobante de reporte disciplinario — Folio #{$folio}";
-  $html = "
-  <h2>Escuela Secundaria Técnica N.º 96 “Miguel Alemán Valdés”</h2>
-  <p>Se ha registrado un nuevo reporte disciplinario.</p>
-  <p><b>Folio:</b> $folio<br>
-  <b>Docente:</b> {$docente['nombre']}<br>
-  <b>Clase:</b> $clase<br>
-  <b>Hora:</b> $hora<br>
-  <b>Registrado por:</b> $prefecto</p>
-  <p><a href='$recibo_url' target='_blank'>Ver comprobante</a></p>
-  <hr><small>Mensaje automático del sistema E.S.T. 96</small>";
-
-  mail_simple("{$docente['usuario']}@edunet.com.mx", $asunto, $html);
-
-  echo json_encode(["ok"=>true,"folio"=>$folio,"recibo_url"=>$recibo_url]);
+  echo json_encode(["ok" => true, "folio" => $folio, "recibo_url" => $urlRecibo]);
 } catch (Exception $e) {
-  if (isset($conn)) $conn->rollback();
-  echo json_encode(["ok"=>false,"error"=>$e->getMessage()]);
+  $conn->rollback();
+  echo json_encode(["ok" => false, "error" => "Error al guardar reporte: " . $e->getMessage()]);
+}
+
+function obtenerCorreoDocente($conn, $usuario) {
+  $stmt = $conn->prepare("SELECT correo_electronico FROM usuarios WHERE usuario = ? LIMIT 1");
+  $stmt->bind_param("s", $usuario);
+  $stmt->execute();
+  $res = $stmt->get_result();
+  $fila = $res->fetch_assoc();
+  return $fila['correo_electronico'] ?? "no-reply@miguelaleman.edunet.com.mx";
 }
 ?>
