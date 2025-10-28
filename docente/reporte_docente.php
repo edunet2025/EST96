@@ -22,11 +22,10 @@ $matricula_docente = $_SESSION['usuario'];
   <!-- ======= ENCABEZADO INSTITUCIONAL ======= -->
 <header class="encabezado">
   <div class="encabezado-contenido">
-    <img src="/img/logo_escuela.png" alt="Escudo Escuela" class="logo">
+    <img src="/img/logo.png" alt="Escudo Escuela" class="logo">
     <div class="titulo">
       <h2>Escuela Secundaria Técnica No. 96</h2>
       <h3>“Miguel Alemán Valdés”</h3>
-      <p>Ciudad de México — Zona Escolar 05, D.E.</p>
     </div>
   </div>
 </header>
