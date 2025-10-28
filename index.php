@@ -55,7 +55,7 @@ if (file_exists($dataFile)) {
       <iframe class="map"
         src="https://www.google.com/maps/place/Escuela+Secundaria+T%C3%A9cnica+N%C2%B0+96+%22Miguel+Alem%C3%A1n+Vald%C3%A9z%22/@19.221645,-99.2060071,16.05z/data=!4m6!3m5!1s0x85cdfdec74cc96c5:0xa0c9d7b319997d60!8m2!3d19.2219757!4d-99.2069223!16s%2Fg%2F1wrgkh7j?hl=es-419&entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D"
         loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <p class="note">Col. san miguel Ajusco, Alcaldía Tlalpan, CDMX</p>
+      <p class="note">Calle Guadalupe Victoria 60, Santo Tomás Ajusco, 14700 San Miguel Ajusco, CMX, México</p>
     </article>
   </section>
 
