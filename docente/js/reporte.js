@@ -54,57 +54,58 @@ async function buscarAlumno(bloque) {
   }
 }
 
-// ==================== BUSCAR MATRÍCULA POR NOMBRE ====================
+// ==================== BUSCAR MATRÍCULA INTELIGENTE ====================
 async function buscarMatriculaPorNombre(bloque) {
   const nombre = bloque.querySelector(".nombre").value.trim();
-  const grado = bloque.querySelector(".grado").value;
-  const grupo = bloque.querySelector(".grupo").value;
   const msg = bloque.querySelector(".lookupMsg");
+  if (nombre.length < 2) {
+    msg.textContent = "";
+    return;
+  }
 
-  if (!nombre || !grado || !grupo) return;
-  msg.textContent = "Buscando matrícula...";
+  msg.textContent = "⏳ Buscando coincidencias...";
   try {
-    const res = await fetch(`${API_BUSCA_MAT}?nombre=${encodeURIComponent(nombre)}&grado=${grado}&grupo=${grupo}`);
+    const res = await fetch(`${API_BUSCA_MAT}?nombre=${encodeURIComponent(nombre)}`);
     const data = await res.json();
 
-    // Un solo resultado directo
-    if (data.matricula) {
-      bloque.querySelector(".matricula").value = data.matricula;
-      bloque.querySelector(".prefecto").value = asignaPrefecto(grado, grupo);
-      msg.textContent = `✓ Matrícula: ${data.matricula}`;
+    // Si hay error o sin resultados
+    if (data.error || !data.candidatos || data.candidatos.length === 0) {
+      msg.textContent = "❌ No se encontraron coincidencias.";
       return;
     }
 
-    // Varios candidatos
-    if (Array.isArray(data.candidatos) && data.candidatos.length > 1) {
-      msg.innerHTML = `<select class="sel-candidatos" style="width:100%;margin-top:4px;">
-        <option value="">Selecciona alumno</option>
-        ${data.candidatos
-          .map(
-            (c) =>
-              `<option value="${c.matricula}">${c.nombre_completo} — ${c.grado}°${c.grupo}</option>`
-          )
-          .join("")}
-      </select>`;
+    // Crear lista desplegable de coincidencias
+    msg.innerHTML = `<select class="sel-candidatos" style="width:100%;margin-top:4px;">
+      <option value="">Selecciona alumno</option>
+      ${data.candidatos
+        .map(
+          (c) =>
+            `<option value="${c.matricula}" data-grado="${c.grado}" data-grupo="${c.grupo}">
+              ${c.nombre_completo} — ${c.grado}°${c.grupo}
+            </option>`
+        )
+        .join("")}
+    </select>`;
 
-      const sel = msg.querySelector(".sel-candidatos");
-      sel.addEventListener("change", (e) => {
-        const val = e.target.value;
-        if (val) {
-          bloque.querySelector(".matricula").value = val;
-          msg.textContent = `✓ Matrícula: ${val}`;
-        }
-      });
-      return;
-    }
+    const sel = msg.querySelector(".sel-candidatos");
+    sel.addEventListener("change", (e) => {
+      const opt = e.target.selectedOptions[0];
+      if (!opt || !opt.value) return;
 
-    // No coincidencias
-    msg.textContent = "No se encontraron coincidencias.";
+      // Autollenar campos
+      bloque.querySelector(".matricula").value = opt.value;
+      bloque.querySelector(".grado").value = opt.dataset.grado;
+      bloque.querySelector(".grupo").value = opt.dataset.grupo;
+      bloque.querySelector(".prefecto").value = asignaPrefecto(opt.dataset.grado, opt.dataset.grupo);
+
+      msg.textContent = `✓ ${opt.textContent}`;
+    });
   } catch (err) {
     console.error(err);
-    msg.textContent = "Error al buscar por nombre.";
+    msg.textContent = "⚠️ Error al buscar alumno.";
   }
 }
+
 
 // ==================== CLONAR BLOQUE DE ALUMNO ====================
 function inicializarBloque(b) {
