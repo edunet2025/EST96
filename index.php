@@ -53,7 +53,7 @@ if (file_exists($dataFile)) {
     <article class="home-card">
       <h3>📍 ¿Cómo llegar?</h3>
       <iframe class="map"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.352466113045!2d-99.2085206256678!3d19.39640514286108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff7a23cb03a3%3A0x9f8376e716dff3b!2sEscuela%20Secundaria%20T%C3%A9cnica%20No.%2096%20Miguel%20Alem%C3%A1n%20Vald%C3%A9s!5e0!3m2!1ses!2smx!4v1698334476015!5m2!1ses!2smx"
+        src="https://www.google.com/maps/place/Escuela+Secundaria+T%C3%A9cnica+N%C2%B0+96+%22Miguel+Alem%C3%A1n+Vald%C3%A9z%22/@19.221645,-99.2060071,16.05z/data=!4m6!3m5!1s0x85cdfdec74cc96c5:0xa0c9d7b319997d60!8m2!3d19.2219757!4d-99.2069223!16s%2Fg%2F1wrgkh7j?hl=es-419&entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D"
         loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       <p class="note">Col. san miguel Ajusco, Alcaldía Tlalpan, CDMX</p>
     </article>
