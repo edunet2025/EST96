@@ -17,6 +17,7 @@ $error = $_GET['error'] ?? '';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inicio de Sesión | Técnica 96</title>
   <link rel="stylesheet" href="css/login.css">
+  <link rel="icon" href="img/logo.png">
 </head>
 <body>
   <div class="login-wrapper">
