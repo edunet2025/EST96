@@ -47,17 +47,23 @@ if (file_exists($dataFile)) {
       </div>
     </article>
   </section>
+<!-- 📍 Cómo llegar -->
+<section class="home-section">
+  <article class="home-card">
+    <h3>📍 ¿Cómo llegar?</h3>
 
-  <!-- Mapa -->
-  <section class="home-section">
-    <article class="home-card">
-      <h3>📍 ¿Cómo llegar?</h3>
-      <iframe class="map"
-        src="https://www.google.com/maps/place/Escuela+Secundaria+T%C3%A9cnica+N%C2%B0+96+%22Miguel+Alem%C3%A1n+Vald%C3%A9z%22/@19.221645,-99.2060071,16.05z/data=!4m6!3m5!1s0x85cdfdec74cc96c5:0xa0c9d7b319997d60!8m2!3d19.2219757!4d-99.2069223!16s%2Fg%2F1wrgkh7j?hl=es-419&entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D"
-        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <p class="note">Calle Guadalupe Victoria 60, Santo Tomás Ajusco, 14700 San Miguel Ajusco, CMX, México</p>
-    </article>
-  </section>
+    <iframe
+      class="map"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7301.01881193531!2d-99.20600714049877!3d19.221645029117624!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdfdec74cc96c5%3A0xa0c9d7b319997d60!2sEscuela%20Secundaria%20T%C3%A9cnica%20N%C2%B0%2096%20%22Miguel%20Alem%C3%A1n%20Vald%C3%A9z%22!5e0!3m2!1ses-419!2smx!4v1761619340037!5m2!1ses-419!2smx"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Ubicación de la Escuela Secundaria Técnica N.º 96 'Miguel Alemán Valdés'">
+    </iframe>
+
+    <p class="note">📍 Guadalupe Victoria 60, Ampliacion San Miguel Ajusco, Tlalpan, 14710 Ciudad de México, CDMX</p>
+  </article>
+</section>
 
 </main>
 
