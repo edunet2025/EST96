@@ -4,38 +4,30 @@ header('Content-Type: application/json; charset=utf-8');
 mysqli_report(MYSQLI_REPORT_OFF);
 
 $nombre = trim($_GET['nombre'] ?? '');
-$grado  = trim($_GET['grado'] ?? '');
-$grupo  = trim($_GET['grupo'] ?? '');
-
-if ($nombre === '' || $grado === '' || $grupo === '') {
+if ($nombre === '') {
   http_response_code(400);
-  echo json_encode(['error' => 'Faltan parámetros']);
+  echo json_encode(['error' => 'Falta el parámetro nombre']);
   exit;
 }
 
 $nombreLike = "%$nombre%";
 
+// Buscamos alumnos por coincidencia de nombre o apellidos
 $sql = "SELECT usuario AS matricula,
                CONCAT(nombre, ' ', apellido_paterno, ' ', apellido_materno) AS nombre_completo,
                grado, grupo
         FROM usuarios
         WHERE tipo = 'alumno'
-          AND grado = ?
-          AND grupo = ?
           AND (
             nombre LIKE ? OR
             apellido_paterno LIKE ? OR
             apellido_materno LIKE ?
           )
-        LIMIT 10";
+        ORDER BY grado, grupo, nombre
+        LIMIT 15";
 
 $stmt = $conn->prepare($sql);
-if (!$stmt) {
-  echo json_encode(['error' => $conn->error]);
-  exit;
-}
-
-$stmt->bind_param("issss", $grado, $grupo, $nombreLike, $nombreLike, $nombreLike);
+$stmt->bind_param("sss", $nombreLike, $nombreLike, $nombreLike);
 $stmt->execute();
 $res = $stmt->get_result();
 $alumnos = $res->fetch_all(MYSQLI_ASSOC);
@@ -48,11 +40,5 @@ if (count($alumnos) === 0) {
   exit;
 }
 
-// Si solo hay un alumno, devolvemos directamente su matrícula
-if (count($alumnos) === 1) {
-  echo json_encode(['matricula' => $alumnos[0]['matricula']], JSON_UNESCAPED_UNICODE);
-  exit;
-}
-
-// Si hay varios, devolvemos lista para elegir
+// devolvemos lista de sugerencias
 echo json_encode(['candidatos' => $alumnos], JSON_UNESCAPED_UNICODE);
