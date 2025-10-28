@@ -128,7 +128,7 @@ th{
 <body>
 <div class="container">
   <header>
-    <img src="../img/logo.png" alt="Logo Escuela" width="80">
+    <img src="../../img/logo.png" alt="Logo Escuela" width="80">
     <h1>Escuela Secundaria Técnica No. 96 “Miguel Alemán Valdés”</h1>
     <p><strong>Comprobante de Reporte Disciplinario</strong></p>
     <p>Folio: <span class="badge"><?= htmlspecialchars($folio) ?></span></p>
