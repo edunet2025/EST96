@@ -1,0 +1,21 @@
+body{font-family:system-ui,Segoe UI,Arial;margin:0;background:#f6f7fb;color:#1f2a44}
+.wrapper{max-width:920px;margin:28px auto;padding:0 16px}
+.card{background:#fff;border:1px solid #e8ecf4;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.06);padding:20px}
+h1{margin:.2rem 0 1rem;color:#8B0000}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid .full{grid-column:1/-1}
+label{font-weight:700;font-size:.95rem;margin-bottom:6px;display:block}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid #e2e6f2;border-radius:10px;background:#fbfbfe}
+textarea{min-height:110px}
+.badge{display:inline-block;background:#fff3f3;color:#8B0000;font-weight:700;border-radius:999px;padding:5px 12px;font-size:.9rem;border:1px solid #eec}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}
+.btn-primary{background:#8B0000;color:#fff}
+.btn-ghost{background:#fff;border:1px solid #dfe3ef}
+.btn.verde{background:#1d8348;color:#fff}
+.row{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
+.muted{color:#6b7280;font-size:.9rem}
+.ok{color:#065f46}
+.err{color:#b91c1c}
+.alumno-block{background:#fdfdfd;border:1px dashed #ccc;border-radius:10px;padding:12px;margin-bottom:12px}
+.row-scan{display:flex;gap:8px;align-items:center}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
