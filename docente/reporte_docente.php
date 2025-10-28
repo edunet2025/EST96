@@ -1,106 +1,120 @@
 <?php
 session_start();
-if (!isset($_SESSION['usuario']) || !in_array($_SESSION['tipo'], ['docente','prefectura','orientacion'])) {
-  header("Location: ../login.php");
+date_default_timezone_set('America/Mexico_City');
+
+if (!isset($_SESSION['nombre']) || $_SESSION['tipo'] !== 'docente') {
+  header('Location: ../login.php');
   exit;
 }
-$usuario = $_SESSION['nombre'] . " (" . $_SESSION['usuario'] . ")";
-$tipo    = $_SESSION['tipo'];
+
+$nombre_docente = $_SESSION['nombre'];
+$matricula_docente = $_SESSION['usuario'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Reporte de Conducta | Técnica 96</title>
-<link rel="stylesheet" href="../css/reporte.css">
+<title>Reporte de Conducta — E.S.T. 96 Miguel Alemán Valdés</title>
+<link rel="stylesheet" href="css/reporte.css?v=2">
 </head>
 <body>
-<header class="encabezado">
-  <img src="../img/logo.png" alt="Logo E.S.T. 96" class="logo">
-  <div>
-    <h1>Escuela Secundaria Técnica N.º 96</h1>
-    <h2>“Miguel Alemán Valdés”</h2>
-  </div>
-</header>
+<div class="wrapper">
+  <div class="card">
+    <h1>🧾 Reporte de Conducta</h1>
+    <p class="muted">Puedes agregar más de un alumno al mismo reporte. El prefecto se asigna automáticamente.</p>
 
-<main class="contenedor">
-<section class="card">
-  <h3>🧾 Reporte de Conducta (<?= ucfirst($tipo) ?>)</h3>
-  <p><strong><?= ucfirst($tipo) ?>:</strong> <?= htmlspecialchars($usuario) ?></p>
+    <form id="frmReporte" class="grid">
+      <div class="full">
+        <span class="badge" id="docInfo">Docente: —</span>
+      </div>
 
-  <form id="frmReporte">
-    <label>Docente responsable</label>
-    <select id="docente" required><option value="">Cargando...</option></select>
+      <div id="alumnosContainer">
+        <div class="alumno-block">
+          <div class="full">
+            <label>Matrícula del alumno</label>
+            <input class="matricula" required placeholder="Ej. 002 o ROCJ940719A">
+            <small class="muted lookupMsg"></small>
+          </div>
 
-    <div id="alumnosCont">
-      <div class="alumno-block">
-        <label>Matrícula del alumno</label>
-        <input name="matricula[]" class="inp-mat" required>
-        <small class="msg"></small>
+          <div class="full row-scan">
+            <input class="scanFile" type="file" accept="image/*" capture="environment">
+            <button type="button" class="btn btn-ghost btnScan">📷 Escanear formato</button>
+            <small class="muted scanMsg"></small>
+          </div>
 
-        <label>Nombre del alumno</label>
-        <input name="nombre[]" class="inp-nom" readonly>
+          <div>
+            <label>Nombre del alumno</label>
+            <input class="nombre" placeholder="Se llena automáticamente">
+          </div>
 
-        <div class="fila">
-          <div><label>Grado</label><select name="grado[]" class="sel-grado"><option>1</option><option>2</option><option>3</option></select></div>
-          <div><label>Grupo</label><select name="grupo[]" class="sel-grupo"><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+          <div>
+            <label>Prefecto asignado (auto)</label>
+            <input class="prefecto" readonly placeholder="Se asignará según grado y grupo">
+          </div>
+
+          <div>
+            <label>Grado</label>
+            <select class="grado" required>
+              <option value="">Grado</option><option>1</option><option>2</option><option>3</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Grupo</label>
+            <select class="grupo" required>
+              <option value="">Grupo</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
 
-    <button type="button" id="btnAdd" class="btn verde">+ Agregar otro alumno</button>
+      <button type="button" id="btnAddAlumno" class="btn verde full">+ Agregar otro alumno</button>
 
-    <div class="fila">
-      <div><label>Clase</label>
+      <div>
+        <label>Clase</label>
         <select id="clase" required>
-          <option>Tecnología</option><option>Español</option><option>Matemáticas</option>
-          <option>Ciencias</option><option>Inglés</option><option>Historia</option>
-          <option>Educación Física</option><option>Artes</option>
+          <option value="">Selecciona</option>
+          <option>Tecnología</option><option>Español</option><option>Matemáticas</option><option>Ciencias</option>
+          <option>Inglés</option><option>Historia</option><option>Formación Cívica</option>
+          <option>Artes</option><option>Educación Física</option><option>Otra</option>
         </select>
       </div>
-      <div><label>Hora</label>
+
+      <div>
+        <label>Hora</label>
         <select id="hora" required>
-          <option>1ra</option><option>2da</option><option>3ra</option><option>4ta</option><option>5ta</option>
+          <option value="">Selecciona</option><option>1ra</option><option>2da</option><option>3ra</option>
+          <option>4ta</option><option>5ta</option><option>6ta</option>
         </select>
       </div>
-    </div>
 
-    <label>Descripción de la conducta</label>
-    <textarea id="contenido" required></textarea>
+      <div class="full">
+        <label>Descripción de la conducta</label>
+        <textarea id="contenido" required placeholder="Describe el incidente."></textarea>
+      </div>
 
-    <div class="botonera">
-      <button type="reset" class="btn beige">Limpiar</button>
-      <button type="submit" class="btn vino">Enviar reporte</button>
-    </div>
-    <p id="statusMsg"></p>
-    <p id="reciboLink" style="display:none">✅ Comprobante: <a id="aRecibo" target="_blank">Abrir</a></p>
-  </form>
-</section>
-</main>
+      <div class="row full">
+        <button type="reset" class="btn btn-ghost">Limpiar</button>
+        <button type="submit" class="btn btn-primary">Enviar reporte</button>
+      </div>
+
+      <div class="full">
+        <p id="statusMsg" class="muted"></p>
+        <p id="reciboLink" style="display:none">
+          ✅ Comprobante listo:
+          <a id="aRecibo" target="_blank" rel="noopener">Abrir comprobante</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
 
 <script>
-const API_DOCENTES="../backend/api/alumnos/listar_docentes.php";
-const API_BUSCAR="../backend/api/alumnos/buscar_por_matricula.php";
-const API_GUARDAR="../backend/api/reportes/guardar.php";
-
-async function cargarDocentes(){
-  const sel=document.getElementById("docente");
-  try{
-    const r=await fetch(API_DOCENTES); const d=await r.json();
-    sel.innerHTML='<option value="">Selecciona</option>';
-    d.forEach(x=>sel.innerHTML+=`<option value="${x.usuario}">${x.nombre_completo}</option>`);
-  }catch(e){sel.innerHTML='<option>Error</option>';}
-}
-cargarDocentes();
-
-function attachLookup(b){
-  const m=b.querySelector(".inp-mat"),n=b.querySelector(".inp-nom"),
-        g=b.querySelector(".sel-grado"),h=b.querySelector(".sel-grupo"),msg=b.querySelector(".msg");
-  m.addEventListener("blur",async()=>{
-    const mat=m.value.trim(); if(!mat)return;
-    msg.textContent="Buscando...";
-    try{
-      const r=await fetch(API_BUSCAR+"?matricula="+encodeURIComponent(mat));
-      if(!r.ok){msg.textContent="No encontrado";n.value="";return;}
-      const a=await r.json(); n.value=a.nombre_completo||""; g.value=a.grado||_
+const PHP_NOMBRE = <?= json_encode($nombre_docente) ?>;
+const PHP_MATRICULA = <?= json_encode($matricula_docente) ?>;
+</script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="js/reporte.js?v=2"></script>
+</body>
+</html>
