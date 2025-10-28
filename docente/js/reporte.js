@@ -119,4 +119,21 @@ document.getElementById("frmReporte").addEventListener("submit", async e=>{
 
   status.textContent = "Enviando...";
   try {
-    const res = await
+    const res = await fetch(API_GUARDAR, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data.ok) {
+      status.textContent = `✅ Reporte guardado con folio ${data.folio}`;
+      const a = document.getElementById("aRecibo");
+      a.href = data.recibo_url;
+      document.getElementById("reciboLink").style.display = "block";
+    } else {
+      status.textContent = "❌ " + (data.error || "Error desconocido");
+    }
+  } catch (err) {
+    status.textContent = "❌ Error al guardar: " + err.message;
+  }
+});
