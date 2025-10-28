@@ -28,24 +28,24 @@ try {
 
   // 2️⃣ Insertar cada alumno (todos comparten el mismo folio)
   $stmt = $conn->prepare("INSERT INTO reportes 
-    (folio, matricula_docente, nombre_docente, matricula_alumno, nombre_alumno,
-     grado, grupo, clase, hora, contenido, registrado_por, tipo_origen)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'docente')");
+  (folio, matricula_docente, nombre_docente, matricula_alumno, nombre_alumno,
+   grado, grupo, clase, hora, contenido, registrado_por, tipo_origen)
+   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'docente')");
 
   foreach ($alumnos as $a) {
     $stmt->bind_param("isssssissss",
-      $folio,
-      $docente['usuario'],
-      $docente['nombre'],
-      $a['matricula'],
-      $a['nombre'],
-      $a['grado'],
-      $a['grupo'],
-      $clase,
-      $hora,
-      $contenido,
-      $prefecto
-    );
+    $folio,
+    $docente['usuario'],
+    $docente['nombre'],
+    $a['matricula'],
+    $a['nombre'],
+    $a['grado'],
+    $a['grupo'],
+    $clase,
+    $hora,
+    $contenido,
+    $prefecto
+  );
     $stmt->execute();
   }
 
