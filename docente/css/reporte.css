@@ -1,21 +1,65 @@
-/* ======= ESTILOS GENERALES ======= */
+/* ======= VARIABLES DE COLOR ======= */
 :root {
     --rojo: #8B0000;
+    --azul: #0f2a6d;
     --verde: #1d8348;
-    --azul: #1f2a44;
-    --gris-fondo: #f6f7fb;
+    --gris-fondo: #f4f6f9;
     --gris-borde: #e2e6f2;
+    --texto: #1f2a44;
   }
   
+  /* ======= CUERPO GENERAL ======= */
   body {
     font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial;
     margin: 0;
     background: var(--gris-fondo);
-    color: var(--azul);
-    line-height: 1.5;
+    color: var(--texto);
+    line-height: 1.6;
   }
   
-  /* ======= CONTENEDOR PRINCIPAL ======= */
+  /* ======= ENCABEZADO INSTITUCIONAL ======= */
+  .encabezado {
+    background: linear-gradient(90deg, var(--rojo) 0%, var(--azul) 100%);
+    color: #fff;
+    padding: 20px 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .encabezado-contenido {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  
+  .encabezado .logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #fff;
+    padding: 6px;
+  }
+  
+  .encabezado .titulo h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0;
+  }
+  .encabezado .titulo h3 {
+    margin: 2px 0;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+  .encabezado .titulo p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+  
+  /* ======= TARJETA DE FORMULARIO ======= */
   .wrapper {
     max-width: 940px;
     margin: 40px auto;
@@ -24,28 +68,28 @@
   
   .card {
     background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     padding: 28px 30px 36px;
     border-top: 6px solid var(--rojo);
     transition: all 0.3s ease;
   }
   
   .card:hover {
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
   }
   
   /* ======= TÍTULOS ======= */
   h1 {
-    font-size: 1.9rem;
+    font-size: 1.8rem;
     color: var(--rojo);
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.6rem;
     display: flex;
     align-items: center;
     gap: 10px;
   }
   h1::before {
-    content: "📋";
+    content: "🧾";
     font-size: 1.7rem;
   }
   
@@ -69,8 +113,8 @@
     font-weight: 600;
     font-size: 0.95rem;
     display: block;
-    margin-bottom: 6px;
-    color: var(--azul);
+    margin-bottom: 5px;
+    color: var(--texto);
   }
   
   input,
@@ -93,7 +137,11 @@
     box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.15);
   }
   
-  /* ======= BADGE DOCENTE ======= */
+  textarea {
+    min-height: 110px;
+  }
+  
+  /* ======= DOCENTE BADGE ======= */
   .badge {
     display: inline-block;
     background: #fff3f3;
@@ -107,7 +155,7 @@
   
   /* ======= BLOQUES DE ALUMNO ======= */
   .alumno-block {
-    background: #fafafa;
+    background: #fdfdfd;
     border: 1px dashed #ccc;
     border-radius: 10px;
     padding: 16px;
@@ -143,7 +191,7 @@
   .btn-ghost {
     background: #fff;
     border: 1px solid #dfe3ef;
-    color: var(--azul);
+    color: var(--texto);
   }
   .btn-ghost:hover {
     background: #f9fafc;
@@ -159,14 +207,6 @@
   .btn.verde:hover {
     background: #196f3d;
     transform: scale(1.01);
-  }
-  
-  /* ======= FILAS ======= */
-  .row {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    margin-top: 14px;
   }
   
   /* ======= MENSAJES ======= */
@@ -192,7 +232,7 @@
     border: 1px solid #ccc;
     background: #fff;
     font-size: 0.9rem;
-    color: var(--azul);
+    color: var(--texto);
     margin-top: 6px;
   }
   .sel-candidatos:hover {
@@ -206,6 +246,13 @@
     }
     .card {
       padding: 22px 20px 30px;
+    }
+    .encabezado-contenido {
+      justify-content: center;
+      text-align: center;
+    }
+    .encabezado .logo {
+      margin-bottom: 10px;
     }
     h1 {
       font-size: 1.5rem;

@@ -19,6 +19,18 @@ $matricula_docente = $_SESSION['usuario'];
 <link rel="stylesheet" href="css/reporte.css?v=2">
 </head>
 <body>
+  <!-- ======= ENCABEZADO INSTITUCIONAL ======= -->
+<header class="encabezado">
+  <div class="encabezado-contenido">
+    <img src="/img/logo_escuela.png" alt="Escudo Escuela" class="logo">
+    <div class="titulo">
+      <h2>Escuela Secundaria Técnica No. 96</h2>
+      <h3>“Miguel Alemán Valdés”</h3>
+      <p>Ciudad de México — Zona Escolar 05, D.E.</p>
+    </div>
+  </div>
+</header>
+
 <div class="wrapper">
   <div class="card">
     <h1>🧾 Reporte de Conducta</h1>
