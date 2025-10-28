@@ -1,44 +1,31 @@
 <?php
-header("Content-Type: application/json; charset=utf-8");
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-require_once("../../conexion.php");
+require_once __DIR__ . '/../../conexion.php';
+header('Content-Type: application/json; charset=utf-8');
+mysqli_report(MYSQLI_REPORT_OFF);
 
 $matricula = trim($_GET['matricula'] ?? '');
-
 if ($matricula === '') {
-  echo json_encode(["error" => "Falta matrícula"]);
+  http_response_code(400);
+  echo json_encode(['error' => 'Matrícula requerida']);
   exit;
 }
 
-$stmt = $conn->prepare("
-  SELECT 
-    usuario           AS matricula,
-    nombre,
-    apellido_paterno,
-    apellido_materno,
-    grado,
-    grupo
-  FROM usuarios
-  WHERE usuario = ? AND tipo = 'alumno'
-  LIMIT 1
-");
+$sql = "SELECT usuario AS matricula,
+               CONCAT(nombre, ' ', apellido_paterno, ' ', apellido_materno) AS nombre_completo,
+               grado, grupo
+        FROM usuarios
+        WHERE tipo = 'alumno' AND usuario = ? LIMIT 1";
+
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $matricula);
 $stmt->execute();
 $res = $stmt->get_result();
 
-if ($res->num_rows === 0) {
-  echo json_encode(["error" => "No encontrado"]);
-  exit;
+if ($res && $al = $res->fetch_assoc()) {
+  echo json_encode($al, JSON_UNESCAPED_UNICODE);
+} else {
+  http_response_code(404);
+  echo json_encode(['error' => 'Alumno no encontrado']);
 }
-
-$al = $res->fetch_assoc();
-$al['nombre_completo'] = trim(
-  ($al['nombre'] ?? '') . ' ' .
-  ($al['apellido_paterno'] ?? '') . ' ' .
-  ($al['apellido_materno'] ?? '')
-);
-
-echo json_encode($al);
-?>
+$stmt->close();
+$conn->close();
