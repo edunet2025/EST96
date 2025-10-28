@@ -14,6 +14,7 @@ if ($nombre === '' || $grado === '' || $grupo === '') {
 }
 
 $nombreLike = "%$nombre%";
+
 $sql = "SELECT usuario AS matricula,
                CONCAT(nombre, ' ', apellido_paterno, ' ', apellido_materno) AS nombre_completo,
                grado, grupo
@@ -21,24 +22,37 @@ $sql = "SELECT usuario AS matricula,
         WHERE tipo = 'alumno'
           AND grado = ?
           AND grupo = ?
-          AND (nombre LIKE ? OR apellido_paterno LIKE ? OR apellido_materno LIKE ?)
+          AND (
+            nombre LIKE ? OR
+            apellido_paterno LIKE ? OR
+            apellido_materno LIKE ?
+          )
         LIMIT 10";
 
 $stmt = $conn->prepare($sql);
+if (!$stmt) {
+  echo json_encode(['error' => $conn->error]);
+  exit;
+}
+
 $stmt->bind_param("issss", $grado, $grupo, $nombreLike, $nombreLike, $nombreLike);
 $stmt->execute();
 $res = $stmt->get_result();
-
-$data = $res->fetch_all(MYSQLI_ASSOC);
-
-if (count($data) === 1) {
-  echo json_encode(['matricula' => $data[0]['matricula']], JSON_UNESCAPED_UNICODE);
-} elseif (count($data) > 1) {
-  echo json_encode(['candidatos' => $data], JSON_UNESCAPED_UNICODE);
-} else {
-  http_response_code(404);
-  echo json_encode(['error' => 'Sin coincidencias']);
-}
-
+$alumnos = $res->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 $conn->close();
+
+if (count($alumnos) === 0) {
+  http_response_code(404);
+  echo json_encode(['error' => 'Sin coincidencias']);
+  exit;
+}
+
+// Si solo hay un alumno, devolvemos directamente su matrícula
+if (count($alumnos) === 1) {
+  echo json_encode(['matricula' => $alumnos[0]['matricula']], JSON_UNESCAPED_UNICODE);
+  exit;
+}
+
+// Si hay varios, devolvemos lista para elegir
+echo json_encode(['candidatos' => $alumnos], JSON_UNESCAPED_UNICODE);
