@@ -19,3 +19,15 @@ textarea{min-height:110px}
 .alumno-block{background:#fdfdfd;border:1px dashed #ccc;border-radius:10px;padding:12px;margin-bottom:12px}
 .row-scan{display:flex;gap:8px;align-items:center}
 @media (max-width:880px){.grid{grid-template-columns:1fr}}
+.sel-candidatos {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 0.95rem;
+    color: #1f2a44;
+  }
+  .sel-candidatos:hover {
+    border-color: #8B0000;
+  }
+  
