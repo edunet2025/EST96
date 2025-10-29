@@ -63,9 +63,9 @@ if (isset($_SESSION['usuario'])) {
     <section class="panel-accesos">
       <h2>⚡ Accesos rápidos</h2>
       <div class="botones-acceso">
-        <a href="examen.php" class="btn vino">➕ Crear Examen</a>
+        <a href="#" class="btn vino">➕ Crear Examen</a>
         <a href="reporte_docente.php" class="btn cafe">📝 Crear Reporte</a>
-        <a href="../comun/consulta_alumnos.php" class="btn beige">🔍 Buscar Alumno</a>
+        <a href="#" class="btn beige">🔍 Buscar Alumno</a>
         <a href="../logout.php" class="btn gris">🚪 Cerrar Sesión</a>
       </div>
     </section>
