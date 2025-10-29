@@ -1,261 +1,260 @@
 /* ======= VARIABLES DE COLOR ======= */
 :root {
-    --rojo: #8B0000;
-    --azul: #917541;
-    --verde: #cbc7aa;
-    --gris-fondo: #f4f6f9;
-    --gris-borde: #e2e6f2;
-    --texto: #1f2a44;
-  }
-  
-  /* ======= CUERPO GENERAL ======= */
-  body {
-    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial;
-    margin: 0;
-    background: var(--gris-fondo);
-    color: var(--texto);
-    line-height: 1.6;
-  }
-  
-  /* ======= ENCABEZADO INSTITUCIONAL ======= */
-  .encabezado {
-    background: linear-gradient(90deg, var(--rojo) 0%, var(--azul) 100%);
-    color: #fff;
-    padding: 20px 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .encabezado-contenido {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-  
-  .encabezado .logo {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    border-radius: 8px;
-    background: #fff;
-    padding: 6px;
-  }
-  
-  .encabezado .titulo h2 {
-    font-size: 1.4rem;
-    font-weight: 800;
-    margin: 0;
-  }
-  .encabezado .titulo h3 {
-    margin: 2px 0;
-    font-weight: 500;
-    font-size: 1.1rem;
-  }
-  .encabezado .titulo p {
-    margin: 0;
-    font-size: 0.9rem;
-    opacity: 0.9;
-  }
-  
-  /* ======= TARJETA DE FORMULARIO ======= */
-  .wrapper {
-    max-width: 940px;
-    margin: 40px auto;
-    padding: 0 18px;
-  }
-  
-  .card {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    padding: 28px 30px 36px;
-    border-top: 6px solid var(--rojo);
-    transition: all 0.3s ease;
-  }
-  
-  .card:hover {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-  }
-  
-  /* ======= TÍTULOS ======= */
-  h1 {
-    font-size: 1.8rem;
-    color: var(--rojo);
-    margin: 0 0 0.6rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  h1::before {
-    content: "🧾";
-    font-size: 1.7rem;
-  }
-  
-  .muted {
-    color: #6b7280;
-    font-size: 0.95rem;
-  }
-  
-  /* ======= FORMULARIO ======= */
+  --rojo: #8B0000;
+  --azul: #0f2a6d;
+  --verde: #1d8348;
+  --gris-fondo: #f4f6f9;
+  --gris-borde: #e2e6f2;
+  --texto: #1f2a44;
+}
+
+/* ======= CUERPO GENERAL ======= */
+body {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  margin: 0;
+  background: var(--gris-fondo);
+  color: var(--texto);
+  line-height: 1.6;
+}
+
+/* ======= ENCABEZADO INSTITUCIONAL ======= */
+.encabezado {
+  background: linear-gradient(90deg, var(--rojo) 0%, var(--azul) 100%);
+  color: #fff;
+  padding: 20px 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.encabezado-contenido {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.encabezado .logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  padding: 6px;
+}
+
+.encabezado .titulo h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0;
+}
+.encabezado .titulo h3 {
+  margin: 2px 0;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+.encabezado .titulo p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* ======= TARJETA DE FORMULARIO ======= */
+.wrapper {
+  max-width: 940px;
+  margin: 40px auto;
+  padding: 0 18px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 28px 30px 36px;
+  border-top: 6px solid var(--rojo);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* ======= TÍTULOS ======= */
+h1 {
+  font-size: 1.8rem;
+  color: var(--rojo);
+  margin: 0 0 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h1::before {
+  content: "🧾";
+  font-size: 1.7rem;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+/* ======= FORMULARIO ======= */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.grid .full {
+  grid-column: 1 / -1;
+}
+
+/* ======= CAMPOS ======= */
+label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--texto);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--gris-borde);
+  border-radius: 10px;
+  background: #fbfbfe;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--rojo);
+  box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.15);
+}
+
+textarea {
+  min-height: 110px;
+}
+
+/* ======= DOCENTE BADGE ======= */
+.badge {
+  display: inline-block;
+  background: #fff3f3;
+  color: var(--rojo);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  border: 1px solid #f5cccc;
+}
+
+/* ======= BLOQUES DE ALUMNO ======= */
+.alumno-block {
+  background: #fdfdfd;
+  border: 1px dashed #ccc;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: 0.2s;
+}
+
+.alumno-block:hover {
+  border-color: var(--rojo);
+  background: #fffaf9;
+}
+
+/* ======= BOTONES ======= */
+.btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-primary {
+  background: var(--rojo);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #a60000;
+  transform: scale(1.02);
+}
+
+.btn-ghost {
+  background: #fff;
+  border: 1px solid #dfe3ef;
+  color: var(--texto);
+}
+.btn-ghost:hover {
+  background: #f9fafc;
+  transform: scale(1.02);
+}
+
+.btn.verde {
+  background: var(--verde);
+  color: #fff;
+  width: 100%;
+  font-size: 0.95rem;
+}
+.btn.verde:hover {
+  background: #196f3d;
+  transform: scale(1.01);
+}
+
+/* ======= MENSAJES ======= */
+.ok {
+  color: #065f46;
+  font-weight: 600;
+}
+.err {
+  color: #b91c1c;
+  font-weight: 600;
+}
+.lookupMsg {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 4px;
+}
+
+/* ======= SELECT DE SUGERENCIAS ======= */
+.sel-candidatos {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 0.9rem;
+  color: var(--texto);
+  margin-top: 6px;
+}
+.sel-candidatos:hover {
+  border-color: var(--rojo);
+}
+
+/* ======= RESPONSIVO ======= */
+@media (max-width: 880px) {
   .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
+    grid-template-columns: 1fr;
   }
-  .grid .full {
-    grid-column: 1 / -1;
+  .card {
+    padding: 22px 20px 30px;
   }
-  
-  /* ======= CAMPOS ======= */
-  label {
-    font-weight: 600;
-    font-size: 0.95rem;
-    display: block;
-    margin-bottom: 5px;
-    color: var(--texto);
+  .encabezado-contenido {
+    justify-content: center;
+    text-align: center;
   }
-  
-  input,
-  select,
-  textarea {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--gris-borde);
-    border-radius: 10px;
-    background: #fbfbfe;
-    font-size: 0.95rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
+  .encabezado .logo {
+    margin-bottom: 10px;
   }
-  
-  input:focus,
-  select:focus,
-  textarea:focus {
-    outline: none;
-    border-color: var(--rojo);
-    box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.15);
+  h1 {
+    font-size: 1.5rem;
   }
-  
-  textarea {
-    min-height: 110px;
-  }
-  
-  /* ======= DOCENTE BADGE ======= */
-  .badge {
-    display: inline-block;
-    background: #fff3f3;
-    color: var(--rojo);
-    font-weight: 700;
-    border-radius: 999px;
-    padding: 6px 14px;
-    font-size: 0.9rem;
-    border: 1px solid #f5cccc;
-  }
-  
-  /* ======= BLOQUES DE ALUMNO ======= */
-  .alumno-block {
-    background: #fdfdfd;
-    border: 1px dashed #ccc;
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 16px;
-    transition: 0.2s;
-  }
-  
-  .alumno-block:hover {
-    border-color: var(--rojo);
-    background: #fffaf9;
-  }
-  
-  /* ======= BOTONES ======= */
-  .btn {
-    border: 0;
-    border-radius: 10px;
-    padding: 11px 16px;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.2s, transform 0.1s;
-  }
-  
-  .btn-primary {
-    background: var(--rojo);
-    color: #fff;
-  }
-  .btn-primary:hover {
-    background: #a60000;
-    transform: scale(1.02);
-  }
-  
-  .btn-ghost {
-    background: #fff;
-    border: 1px solid #dfe3ef;
-    color: var(--texto);
-  }
-  .btn-ghost:hover {
-    background: #f9fafc;
-    transform: scale(1.02);
-  }
-  
-  .btn.verde {
-    background: var(--verde);
-    color: #fff;
-    width: 100%;
-    font-size: 0.95rem;
-  }
-  .btn.verde:hover {
-    background: #196f3d;
-    transform: scale(1.01);
-  }
-  
-  /* ======= MENSAJES ======= */
-  .ok {
-    color: #065f46;
-    font-weight: 600;
-  }
-  .err {
-    color: #b91c1c;
-    font-weight: 600;
-  }
-  .lookupMsg {
-    font-size: 0.85rem;
-    color: #555;
-    margin-top: 4px;
-  }
-  
-  /* ======= SELECT DE SUGERENCIAS ======= */
-  .sel-candidatos {
-    width: 100%;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background: #fff;
-    font-size: 0.9rem;
-    color: var(--texto);
-    margin-top: 6px;
-  }
-  .sel-candidatos:hover {
-    border-color: var(--rojo);
-  }
-  
-  /* ======= RESPONSIVO ======= */
-  @media (max-width: 880px) {
-    .grid {
-      grid-template-columns: 1fr;
-    }
-    .card {
-      padding: 22px 20px 30px;
-    }
-    .encabezado-contenido {
-      justify-content: center;
-      text-align: center;
-    }
-    .encabezado .logo {
-      margin-bottom: 10px;
-    }
-    h1 {
-      font-size: 1.5rem;
-    }
-  }
-  
+}
