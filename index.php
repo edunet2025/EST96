@@ -19,7 +19,7 @@ if (file_exists($dataFile)) {
 
   <!-- Bienvenida -->
   <section class="home-section center-text">
-    <h1>🏫 Bienvenidos a la Escuela Secundaria Técnica N.º 96 “Miguel Alemán Valdés”</h1>
+    <h2>🏫 Bienvenidos a la Escuela Secundaria Técnica N.º 96 “Miguel Alemán Valdés”</h2>
     <p class="lead">
       ¡Nos alegra contar con tu visita! Explora nuestra comunidad educativa, nuestras actividades 
       y todo lo que tenemos preparado para ti.
