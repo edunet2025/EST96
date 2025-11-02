@@ -1,64 +1,118 @@
+/* ===== Layout general ===== */
+body {
+  font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  margin: 0;
+  background: #f3f4f6; /* gris suave */
+  color: #1f2a44;
+}
+
 .main-content {
-    max-width: 800px;
-    margin: 2rem auto;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.asistencias-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ===== Encabezado ===== */
+.asistencias-card h2 {
+  text-align: center;
+  color: #003366;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.asistencias-card p {
+  text-align: center;
+  color: #444;
+  margin-bottom: 1.5rem;
+}
+
+/* ===== Tabla ===== */
+.tabla-lista {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.tabla-lista th,
+.tabla-lista td {
+  padding: 0.7rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla-lista th {
+  background: #0057b7;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.tabla-lista tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.tabla-lista tr:hover {
+  background: #eaf2ff;
+}
+
+/* ===== Checkbox y observaciones ===== */
+.tabla-lista input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #0057b7;
+}
+
+.tabla-lista textarea {
+  width: 100%;
+  resize: none;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  padding: 3px 6px;
+  transition: border 0.3s ease;
+}
+
+.tabla-lista textarea:focus {
+  outline: none;
+  border-color: #0057b7;
+  background: #f9fcff;
+}
+
+/* ===== Botón guardar ===== */
+.btn-enviar {
+  background: #0057b7;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 1.5rem;
+  transition: background 0.3s ease;
+}
+
+.btn-enviar:hover {
+  background: #003f8a;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .tabla-lista th:nth-child(3),
+  .tabla-lista td:nth-child(3) {
+    display: none; /* oculta observaciones si la pantalla es muy pequeña */
+  }
+  .asistencias-card {
     padding: 1rem;
   }
-  
-  .asistencias-card {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-  
-  .asistencias-card h2 {
-    text-align: center;
-    color: #1f2a44;
-    margin-bottom: 1.5rem;
-  }
-  
-  .asistencias-form .campo {
-    margin-bottom: 1rem;
-  }
-  
-  .asistencias-form label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: .3rem;
-  }
-  
-  .asistencias-form input,
-  .asistencias-form select {
-    width: 100%;
-    padding: .5rem;
-    border: 1px solid #ccc;
-    border-radius: .5rem;
-  }
-  
-  .btn-enviar {
-    width: 100%;
-    background: #0057b7;
-    color: #fff;
-    border: none;
-    padding: .8rem;
-    border-radius: .5rem;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .btn-enviar:hover {
-    background: #004095;
-  }
-  
-  .alerta {
-    padding: .8rem;
-    border-radius: .5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .advertencia {
-    background: #fff3cd;
-    border: 1px solid #ffeeba;
-    color: #856404;
-  }
-  
+}

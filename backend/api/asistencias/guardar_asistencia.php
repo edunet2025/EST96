@@ -18,15 +18,20 @@ if (!$materia || !$hora || !$grado || !$grupo) {
   die("Datos incompletos");
 }
 
+$observaciones = $_POST['observacion'] ?? [];
+
 foreach ($asistencias as $matricula => $valor) {
   $asistencia = $valor ? 1 : 0;
-  $sql = "INSERT INTO asistencias (usuario, grado, grupo, materia, fecha, hora, alumno, asistencia)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-          ON DUPLICATE KEY UPDATE asistencia=VALUES(asistencia)";
+  $obs = $observaciones[$matricula] ?? null;
+
+  $sql = "INSERT INTO asistencias (usuario, grado, grupo, materia, fecha, hora, alumno, asistencia, observacion)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+          ON DUPLICATE KEY UPDATE asistencia=VALUES(asistencia), observacion=VALUES(observacion)";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("sisssssi", $usuario, $grado, $grupo, $materia, $fecha, $hora, $matricula, $asistencia);
+  $stmt->bind_param("sisssssis", $usuario, $grado, $grupo, $materia, $fecha, $hora, $matricula, $asistencia, $obs);
   $stmt->execute();
 }
+
 
 echo "<script>
 alert('✅ Asistencia guardada correctamente');

@@ -50,25 +50,32 @@ $result = $stmt->get_result();
         <input type="hidden" name="grupo" value="<?= htmlspecialchars($grupo) ?>">
 
         <table class="tabla-lista">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Alumno</th>
-              <th>Asistencia</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php 
-            $n=1;
-            while ($row = $result->fetch_assoc()): ?>
-              <tr>
-                <td><?= $n++ ?></td>
-                <td><?= htmlspecialchars($row['apellido_paterno']." ".$row['apellido_materno']." ".$row['nombre']) ?></td>
-                <td><input type="checkbox" name="asistencia[<?= htmlspecialchars($row['matricula']) ?>]" value="1" checked></td>
-              </tr>
-            <?php endwhile; ?>
-          </tbody>
-        </table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Alumno</th>
+      <th>Asistencia</th>
+      <th>Observaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php 
+    $n=1;
+    while ($row = $result->fetch_assoc()): ?>
+      <tr>
+        <td><?= $n++ ?></td>
+        <td><?= htmlspecialchars($row['apellido_paterno']." ".$row['apellido_materno']." ".$row['nombre']) ?></td>
+        <td style="text-align:center;">
+          <input type="checkbox" name="asistencia[<?= htmlspecialchars($row['matricula']) ?>]" value="1" checked>
+        </td>
+        <td>
+          <textarea name="observacion[<?= htmlspecialchars($row['matricula']) ?>]" placeholder="Ej. llegó tarde, sin uniforme..."></textarea>
+        </td>
+      </tr>
+    <?php endwhile; ?>
+  </tbody>
+</table>
+
 
         <div style="margin-top:20px; text-align:right;">
           <button class="btn-enviar" type="submit">Guardar asistencia ✅</button>
