@@ -2,19 +2,20 @@
 session_start();
 require_once __DIR__ . "/../conexion.php";
 
-// =============================
-// VALIDAR SESIÓN DOCENTE
-// =============================
-if (!isset($_SESSION['usuario']) || strtolower($_SESSION['tipo']) !== 'docente') {
+// ===================================
+// VERIFICAR SESIÓN Y PERFILES PERMITIDOS
+// ===================================
+$tipos_permitidos = ['docente', 'orientacion', 'prefectura'];
+if (!isset($_SESSION['usuario']) || !in_array(strtolower($_SESSION['tipo']), $tipos_permitidos)) {
   header("Location: ../login.php");
   exit;
 }
 
 $mensaje = "";
 
-// =============================
-// PROCESAR FORMULARIO
-// =============================
+// ===================================
+// PROCESAR FORMULARIO DE PASE DE LISTA
+// ===================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $fecha   = $_POST['fecha'] ?? date('Y-m-d');
   $materia = $_POST['materia'] ?? '';
@@ -39,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pase de Lista | Docente</title>
+  <title>Pase de Lista | Panel Autorizado</title>
   <link rel="stylesheet" href="../css/header.css">
   <link rel="stylesheet" href="../css/menu.css">
   <link rel="stylesheet" href="../css/asistencias.css">
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <main class="main-content">
     <section class="asistencias-card">
-      <h2>📋 Pase de Lista</h2>
+      <h2>📋 Registro de Asistencia</h2>
 
       <?php if ($mensaje): ?>
         <div class="alerta advertencia"><?= htmlspecialchars($mensaje) ?></div>
@@ -117,6 +118,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <option>D</option>
             <option>E</option>
           </select>
+        </div>
+
+        <div class="campo">
+          <label>👤 Usuario activo:</label>
+          <input type="text" value="<?= htmlspecialchars($_SESSION['usuario']) ?>" readonly>
         </div>
 
         <button type="submit" class="btn-enviar">Continuar ➡️</button>
