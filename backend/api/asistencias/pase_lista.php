@@ -34,9 +34,15 @@ $result = $stmt->get_result();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pase de lista</title>
+  <link rel="stylesheet" href="../css/header.css?v=1">
+  <link rel="stylesheet" href="../css/menu-docente.css?v=1">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="../css/menu.css">
+  <link rel="stylesheet" href="../css/asistencias.css">
   <link rel="stylesheet" href="../../../css/asistencias.css">
 </head>
 <body>
+<?php include "../docente/header.php"; ?>
   <main class="main-content">
     <section class="asistencias-card">
       <h2>📋 Pase de Lista - <?= htmlspecialchars($grado) ?>°<?= htmlspecialchars($grupo) ?></h2>
