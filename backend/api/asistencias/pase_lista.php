@@ -34,13 +34,11 @@ $result = $stmt->get_result();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pase de lista</title>
-  <link rel="stylesheet" href="../../../docente/css/header.css?v=1">
 <link rel="stylesheet" href="../../../docente/css/menu-docente.css?v=1">
 <link rel="stylesheet" href="../../../docente/css/asistencias.css?v=1">
 
 </head>
 <body>
-<?php include __DIR__ . "/../../../docente/header.php"; ?>
   <main class="main-content">
     <section class="asistencias-card">
       <h2>📋 Pase de Lista - <?= htmlspecialchars($grado) ?>°<?= htmlspecialchars($grupo) ?></h2>
@@ -70,7 +68,7 @@ $result = $stmt->get_result();
         <td><?= $n++ ?></td>
         <td><?= htmlspecialchars($row['apellido_paterno']." ".$row['apellido_materno']." ".$row['nombre']) ?></td>
         <td style="text-align:center;">
-          <input type="checkbox" name="asistencia[<?= htmlspecialchars($row['matricula']) ?>]" value="1" checked>
+          <input type="checkbox" name="asistencia[<?= htmlspecialchars($row['matricula']) ?>]" value="1">
         </td>
         <td>
           <textarea name="observacion[<?= htmlspecialchars($row['matricula']) ?>]" placeholder="Ej. llegó tarde, sin uniforme..."></textarea>
