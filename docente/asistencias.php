@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-  <?php include "../header.php"; ?>
+  <?php include "../docente/header.php"; ?>
 
   <main class="main-content">
     <section class="asistencias-card">
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </section>
   </main>
 
-  <?php include "../footer.php"; ?>
+  <?php include "../docente/footer.php"; ?>
 
 </body>
 </html>
