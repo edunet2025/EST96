@@ -130,7 +130,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </section>
   </main>
 
-  <?php include "../docente/footer.php"; ?>
+  <footer class="pie">
+    © Escuela Secundaria Técnica N.º 96 “Miguel Alemán Valdés” — Academia de Tecnologías PCIA
+  </footer>
 
 </body>
 </html>
