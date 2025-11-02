@@ -42,7 +42,7 @@ $result = $stmt->get_result();
   <link rel="stylesheet" href="../../../css/asistencias.css">
 </head>
 <body>
-<?php include "../docente/header.php"; ?>
+<?php include __DIR__ . "/../../../docente/header.php"; ?>
   <main class="main-content">
     <section class="asistencias-card">
       <h2>📋 Pase de Lista - <?= htmlspecialchars($grado) ?>°<?= htmlspecialchars($grupo) ?></h2>
