@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $grupo   = $_POST['grupo'] ?? '';
 
   if ($fecha && $materia && $hora && $grado && $grupo) {
-    header("Location: ../backend/api/asistencias/pase_lista.php?fecha=" . urlencode($fecha) .
+    header("Location: ../backend/api/asistencias/pase_lista.php" . urlencode($fecha) .
                                    "&materia=" . urlencode($materia) .
                                    "&hora=" . urlencode($hora) .
                                    "&grado=" . urlencode($grado) .
