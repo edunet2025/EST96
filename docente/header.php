@@ -11,6 +11,7 @@ if (!isset($_SESSION)) session_start();
     <button class="menu-toggle" id="menuToggle">☰</button>
     <ul id="menuList">
       <li><a href="menu-docente.php">Inicio</a></li>
+      <li><a href="asistencias.php">📝 Asistencia</a></li>
       <li><a href="reporte_docente.php">📝 Reportes</a></li>
       <li><a href="../logout.php" class="logout">Salir</a></li>
     </ul>
