@@ -11,4 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-  
+  // Permite marcar/desmarcar con tecla de espacio
+document.addEventListener("keydown", e => {
+  if (e.code === "Space" && document.activeElement.type === "checkbox") {
+    e.preventDefault();
+    document.activeElement.checked = !document.activeElement.checked;
+  }
+});
