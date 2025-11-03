@@ -45,6 +45,7 @@ body {
   padding: 0.7rem;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  vertical-align: middle;
 }
 
 .tabla-lista th {
@@ -63,13 +64,16 @@ body {
   background: #eaf2ff;
 }
 
-/* ===== Checkbox y observaciones ===== */
+/* ===== Checkbox ===== */
 .tabla-lista input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
+  transform: scale(1.2);
   accent-color: #0057b7;
+  cursor: pointer;
 }
 
+/* ===== Campo de observaciones ===== */
 .tabla-lista textarea {
   width: 100%;
   resize: none;
@@ -87,7 +91,7 @@ body {
   background: #f9fcff;
 }
 
-/* ===== Botón guardar ===== */
+/* ===== Botón principal ===== */
 .btn-enviar {
   background: #0057b7;
   color: white;
@@ -106,28 +110,11 @@ body {
   background: #003f8a;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-  .tabla-lista th:nth-child(3),
-  .tabla-lista td:nth-child(3) {
-    display: none; /* oculta observaciones si la pantalla es muy pequeña */
-  }
-  .asistencias-card {
-    padding: 1rem;
-  }
-}
-.tabla-lista td {
-  vertical-align: middle;
-}
-
-.tabla-lista input[type="checkbox"] {
-  transform: scale(1.2);
-  cursor: pointer;
-}
 /* ===== Botones de marcar / desmarcar ===== */
 .acciones-grupo {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 10px;
 }
@@ -153,4 +140,53 @@ body {
 
 .btn-cancel:hover {
   background: #666;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+  .asistencias-card {
+    padding: 1rem;
+  }
+
+  .tabla-lista {
+    font-size: 0.9rem;
+  }
+
+  /* Mantener checkboxes visibles y funcionales */
+  .tabla-lista input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Ajustar ancho de campo de observaciones */
+  .tabla-lista textarea {
+    width: 90%;
+    font-size: 0.75rem;
+  }
+
+  .btn-enviar {
+    width: 100%;
+  }
+
+  .acciones-grupo {
+    justify-content: center;
+  }
+}
+
+/* ===== Página de confirmación ===== */
+.confirmacion {
+  text-align: center;
+  padding: 2rem;
+}
+
+.confirmacion h2 {
+  color: #0057b7;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.confirmacion p {
+  color: #444;
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
