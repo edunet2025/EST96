@@ -50,6 +50,10 @@ $result = $stmt->get_result();
         <input type="hidden" name="hora" value="<?= htmlspecialchars($hora) ?>">
         <input type="hidden" name="grado" value="<?= htmlspecialchars($grado) ?>">
         <input type="hidden" name="grupo" value="<?= htmlspecialchars($grupo) ?>">
+        <div class="acciones-grupo">
+  <button type="button" id="marcarTodos" class="btn-toggle">☑️ Marcar todos</button>
+  <button type="button" id="desmarcarTodos" class="btn-toggle btn-cancel">❌ Desmarcar todos</button>
+</div>
 
         <table class="tabla-lista">
   <thead>

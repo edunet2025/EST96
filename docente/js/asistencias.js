@@ -18,3 +18,20 @@ document.addEventListener("keydown", e => {
     document.activeElement.checked = !document.activeElement.checked;
   }
 });
+// --- Marcar / desmarcar todos ---
+document.addEventListener("DOMContentLoaded", () => {
+  const marcarTodos = document.getElementById("marcarTodos");
+  const desmarcarTodos = document.getElementById("desmarcarTodos");
+
+  if (marcarTodos && desmarcarTodos) {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][name^="asistencia["]');
+
+    marcarTodos.addEventListener("click", () => {
+      checkboxes.forEach(chk => chk.checked = true);
+    });
+
+    desmarcarTodos.addEventListener("click", () => {
+      checkboxes.forEach(chk => chk.checked = false);
+    });
+  }
+});

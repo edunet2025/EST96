@@ -124,3 +124,33 @@ body {
   transform: scale(1.2);
   cursor: pointer;
 }
+/* ===== Botones de marcar / desmarcar ===== */
+.acciones-grupo {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-toggle {
+  background: #0057b7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.btn-toggle:hover {
+  background: #004095;
+}
+
+.btn-cancel {
+  background: #888;
+}
+
+.btn-cancel:hover {
+  background: #666;
+}
