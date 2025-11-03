@@ -116,3 +116,11 @@ body {
     padding: 1rem;
   }
 }
+.tabla-lista td {
+  vertical-align: middle;
+}
+
+.tabla-lista input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+}
