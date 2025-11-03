@@ -9,8 +9,6 @@ error_reporting(E_ALL);
 session_start();
 require_once __DIR__ . "/../../../conexion.php";
 date_default_timezone_set('America/Mexico_City');
-echo "<!-- Zona horaria actual: " . date_default_timezone_get() . " -->";
-
 
 // =======================================
 // Validar sesión
@@ -36,19 +34,21 @@ $observaciones = $_POST['observacion'] ?? [];
 if (!$materia || !$hora || !$grado || !$grupo) {
   die("Datos incompletos");
 }
-// ===============================
-// Asegurar que todos los alumnos se registren
-// ===============================
+
+// =======================================
+// Recuperar todos los alumnos del grupo
+// =======================================
 $alumnos = [];
-$resultAlumnos = $conn->prepare("SELECT usuario FROM usuarios WHERE tipo='alumno' AND grado=? AND grupo=? ORDER BY apellido_paterno, apellido_materno, nombre");
-$resultAlumnos->bind_param("is", $grado, $grupo);
-$resultAlumnos->execute();
-$res = $resultAlumnos->get_result();
-while ($r = $res->fetch_assoc()) {
+$q = $conn->prepare("SELECT usuario FROM usuarios WHERE tipo='alumno' AND grado=? AND grupo=? ORDER BY apellido_paterno, apellido_materno, nombre");
+$q->bind_param("is", $grado, $grupo);
+$q->execute();
+$resAl = $q->get_result();
+while ($r = $resAl->fetch_assoc()) {
   $alumnos[] = $r['usuario'];
 }
+$q->close();
 
-// Combinar: si no está en $asistencias, marcar falta (0)
+// Asegurar que todos los alumnos estén en el arreglo (faltas si no están)
 foreach ($alumnos as $mat) {
   if (!isset($asistencias[$mat])) {
     $asistencias[$mat] = 0;
@@ -56,8 +56,10 @@ foreach ($alumnos as $mat) {
 }
 
 // =======================================
-// Guardar registros
+// Guardar registros de asistencia
 // =======================================
+$horaRegistro = date('H:i:s'); // Hora actual CDMX
+
 foreach ($asistencias as $matricula => $valor) {
   $asistencia = $valor ? 1 : 0;
   $obs = $observaciones[$matricula] ?? null;
@@ -71,8 +73,9 @@ foreach ($asistencias as $matricula => $valor) {
     die("Error en prepare(): " . $conn->error);
   }
 
-  $stmt->bind_param("sisssssis", $usuario, $grado, $grupo, $materia, $fecha, $hora, $matricula, $asistencia, $obs);
+  $stmt->bind_param("sisssssis", $usuario, $grado, $grupo, $materia, $fecha, $horaRegistro, $matricula, $asistencia, $obs);
   $stmt->execute();
+  $stmt->close();
 }
 
 // =======================================
@@ -92,16 +95,16 @@ if (!$fp) {
   die("Error al crear archivo CSV en: $path");
 }
 
-// Agregar BOM UTF-8 para Excel (acentos correctos)
+// BOM UTF-8 para Excel (acentos correctos)
 fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF));
 fputcsv($fp, ["#", "Alumno", "Asistencia", "Observación"]);
 
 $sql = "SELECT a.alumno, u.nombre, u.apellido_paterno, u.apellido_materno, a.asistencia, a.observacion
         FROM asistencias a
         JOIN usuarios u ON a.alumno COLLATE utf8mb4_unicode_ci = u.usuario COLLATE utf8mb4_unicode_ci
-        WHERE a.fecha=? AND a.grado=? AND a.grupo=? AND a.materia=? AND a.hora=? AND a.usuario=?";
+        WHERE a.fecha=? AND a.grado=? AND a.grupo=? AND a.materia=? AND a.usuario=?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sissss", $fecha, $grado, $grupo, $materia, $hora, $usuario);
+$stmt->bind_param("sisss", $fecha, $grado, $grupo, $materia, $usuario);
 $stmt->execute();
 $res = $stmt->get_result();
 $cont = 1;
@@ -132,6 +135,7 @@ $downloadPath = "../../../uploads/" . $filename;
          <strong>Hora:</strong> <?= htmlspecialchars($hora) ?> |
          <strong>Fecha:</strong> <?= htmlspecialchars($fecha) ?></p>
       <p><strong>Grado y grupo:</strong> <?= htmlspecialchars($grado) ?>°<?= htmlspecialchars($grupo) ?></p>
+      <p><strong>Hora de registro:</strong> <?= htmlspecialchars($horaRegistro) ?> (CDMX)</p>
 
       <div style="margin-top:25px;">
         <a href="<?= $downloadPath ?>" 
