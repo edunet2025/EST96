@@ -40,17 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pase de Lista | Panel Autorizado</title>
+  <title>Registro de Asistencia | Panel Autorizado</title>
+
+  <!-- Estilos y scripts locales -->
   <link rel="stylesheet" href="css/header.css?v=1">
   <link rel="stylesheet" href="css/menu-docente.css?v=1">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/menu.css">
-  <link rel="stylesheet" href="css/asistencias.css">
-  <script src="../js/asistencias.js" defer></script>
+  <link rel="stylesheet" href="css/asistencias.css?v=1">
+  <script src="js/asistencias.js" defer></script>
 </head>
 <body>
 
-  <?php include "../docente/header.php"; ?>
+  <?php include __DIR__ . "/header.php"; ?>
 
   <main class="main-content">
     <section class="asistencias-card">
@@ -114,11 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <label>👥 Grupo:</label>
           <select name="grupo" required>
             <option value="">-- Selecciona grupo --</option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-            <option>D</option>
-            <option>E</option>
+            <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option>
           </select>
         </div>
 

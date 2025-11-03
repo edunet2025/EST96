@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector(".asistencias-form");
+  // Validación de formulario en asistencias.php
+  const form = document.querySelector(".asistencias-form");
+  if (form) {
     form.addEventListener("submit", (e) => {
-      const campos = form.querySelectorAll("select, input");
+      const campos = form.querySelectorAll("select, input[type='date']");
       for (let campo of campos) {
         if (!campo.value) {
           alert("Por favor completa todos los campos antes de continuar.");
@@ -10,28 +12,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     });
-  });
-  // Permite marcar/desmarcar con tecla de espacio
-document.addEventListener("keydown", e => {
-  if (e.code === "Space" && document.activeElement.type === "checkbox") {
-    e.preventDefault();
-    document.activeElement.checked = !document.activeElement.checked;
   }
-});
-// --- Marcar / desmarcar todos ---
-document.addEventListener("DOMContentLoaded", () => {
+
+  // --- Marcar / desmarcar todos ---
   const marcarTodos = document.getElementById("marcarTodos");
   const desmarcarTodos = document.getElementById("desmarcarTodos");
 
   if (marcarTodos && desmarcarTodos) {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"][name^="asistencia["]');
-
     marcarTodos.addEventListener("click", () => {
-      checkboxes.forEach(chk => chk.checked = true);
+      document.querySelectorAll('input[type="checkbox"][name^="asistencia["]')
+        .forEach(chk => chk.checked = true);
     });
 
     desmarcarTodos.addEventListener("click", () => {
-      checkboxes.forEach(chk => chk.checked = false);
+      document.querySelectorAll('input[type="checkbox"][name^="asistencia["]')
+        .forEach(chk => chk.checked = false);
     });
   }
+
+  // --- Alternar con barra espaciadora
+  document.addEventListener("keydown", e => {
+    if (e.code === "Space" && document.activeElement.type === "checkbox") {
+      e.preventDefault();
+      document.activeElement.checked = !document.activeElement.checked;
+    }
+  });
 });
