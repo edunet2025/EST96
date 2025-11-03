@@ -190,3 +190,15 @@ body {
   font-size: 1rem;
   margin-bottom: 1rem;
 }
+/* === Refuerzo de visibilidad en móviles === */
+@media (max-width: 768px) {
+  .tabla-lista th:nth-child(3),
+  .tabla-lista td:nth-child(3) {
+    display: table-cell !important;
+    visibility: visible !important;
+  }
+}
+.tabla-lista input[type="checkbox"] {
+  min-width: 28px;
+  min-height: 28px;
+}
