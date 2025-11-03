@@ -56,27 +56,29 @@ foreach ($asistencias as $matricula => $valor) {
 }
 
 // =======================================
-// Generar archivo CSV descargable
+// Generar archivo CSV (compatible con Excel)
 // =======================================
-$uploadsDir = realpath(__DIR__ . '/../../../uploads');
-if (!$uploadsDir) {
-  mkdir(__DIR__ . '/../../../uploads', 0775, true);
-  $uploadsDir = realpath(__DIR__ . '/../../../uploads');
+$uploadsDir = __DIR__ . '/../../../uploads';
+if (!is_dir($uploadsDir)) {
+  mkdir($uploadsDir, 0775, true);
 }
 
 $filename = "pase_lista_" . $grado . $grupo . "_" . $fecha . ".csv";
 $path = $uploadsDir . "/" . $filename;
 
+// Crear archivo CSV con codificación UTF-8
 $fp = fopen($path, "w");
 if (!$fp) {
   die("Error al crear archivo CSV en: $path");
 }
 
+// Agregar BOM UTF-8 para Excel (acentos correctos)
+fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF));
 fputcsv($fp, ["#", "Alumno", "Asistencia", "Observación"]);
 
 $sql = "SELECT a.alumno, u.nombre, u.apellido_paterno, u.apellido_materno, a.asistencia, a.observacion
         FROM asistencias a
-        JOIN usuarios u ON a.alumno = u.usuario
+        JOIN usuarios u ON a.alumno COLLATE utf8mb4_unicode_ci = u.usuario COLLATE utf8mb4_unicode_ci
         WHERE a.fecha=? AND a.grado=? AND a.grupo=? AND a.materia=? AND a.hora=? AND a.usuario=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sissss", $fecha, $grado, $grupo, $materia, $hora, $usuario);
@@ -90,7 +92,9 @@ while ($row = $res->fetch_assoc()) {
 }
 fclose($fp);
 
+// =======================================
 // Ruta pública para descarga
+// =======================================
 $downloadPath = "../../../uploads/" . $filename;
 ?>
 <!DOCTYPE html>
@@ -110,8 +114,12 @@ $downloadPath = "../../../uploads/" . $filename;
       <p><strong>Grado y grupo:</strong> <?= htmlspecialchars($grado) ?>°<?= htmlspecialchars($grupo) ?></p>
 
       <div style="margin-top:25px;">
-        <a href="<?= $downloadPath ?>" download class="btn-enviar">⬇️ Descargar Excel</a>
-        <a href="../../../docente/menu-docente.php" class="btn-toggle" style="margin-left:10px;">🏠 Menú principal</a>
+        <a href="<?= $downloadPath ?>" 
+           download="pase_lista_<?= $grado . $grupo . '_' . $fecha ?>.csv" 
+           class="btn-enviar">⬇️ Descargar Excel (.csv)</a>
+        <a href="../../../docente/menu-docente.php" 
+           class="btn-toggle" 
+           style="margin-left:10px;">🏠 Menú principal</a>
       </div>
     </section>
   </main>
