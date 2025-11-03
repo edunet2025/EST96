@@ -1,4 +1,7 @@
 <?php
+// =======================================
+// Mostrar errores (solo para depuración)
+// =======================================
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -7,13 +10,18 @@ session_start();
 require_once __DIR__ . "/../../../conexion.php";
 date_default_timezone_set('America/Mexico_City');
 
+// =======================================
 // Validar sesión
-$tipos_permitidos = ['docente','orientacion','prefectura'];
+// =======================================
+$tipos_permitidos = ['docente', 'orientacion', 'prefectura'];
 if (!isset($_SESSION['usuario']) || !in_array(strtolower($_SESSION['tipo']), $tipos_permitidos)) {
   header("Location: ../../../login.php");
   exit;
 }
 
+// =======================================
+// Recibir variables
+// =======================================
 $usuario = $_SESSION['usuario'];
 $fecha   = $_POST['fecha']   ?? date('Y-m-d');
 $materia = $_POST['materia'] ?? '';
@@ -27,7 +35,9 @@ if (!$materia || !$hora || !$grado || !$grupo) {
   die("Datos incompletos");
 }
 
+// =======================================
 // Guardar registros
+// =======================================
 foreach ($asistencias as $matricula => $valor) {
   $asistencia = $valor ? 1 : 0;
   $obs = $observaciones[$matricula] ?? null;
@@ -35,17 +45,34 @@ foreach ($asistencias as $matricula => $valor) {
   $sql = "INSERT INTO asistencias (usuario, grado, grupo, materia, fecha, hora, alumno, asistencia, observacion)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
           ON DUPLICATE KEY UPDATE asistencia=VALUES(asistencia), observacion=VALUES(observacion)";
+
   $stmt = $conn->prepare($sql);
+  if (!$stmt) {
+    die("Error en prepare(): " . $conn->error);
+  }
+
   $stmt->bind_param("sisssssis", $usuario, $grado, $grupo, $materia, $fecha, $hora, $matricula, $asistencia, $obs);
   $stmt->execute();
 }
 
-// ✅ Generar archivo Excel temporal
+// =======================================
+// Generar archivo CSV descargable
+// =======================================
+$uploadsDir = realpath(__DIR__ . '/../../../uploads');
+if (!$uploadsDir) {
+  mkdir(__DIR__ . '/../../../uploads', 0775, true);
+  $uploadsDir = realpath(__DIR__ . '/../../../uploads');
+}
+
 $filename = "pase_lista_" . $grado . $grupo . "_" . $fecha . ".csv";
-$path = "../../../uploads/" . $filename;
+$path = $uploadsDir . "/" . $filename;
 
 $fp = fopen($path, "w");
-fputcsv($fp, ["#","Alumno","Asistencia","Observacion"]);
+if (!$fp) {
+  die("Error al crear archivo CSV en: $path");
+}
+
+fputcsv($fp, ["#", "Alumno", "Asistencia", "Observación"]);
 
 $sql = "SELECT a.alumno, u.nombre, u.apellido_paterno, u.apellido_materno, a.asistencia, a.observacion
         FROM asistencias a
@@ -56,11 +83,15 @@ $stmt->bind_param("sissss", $fecha, $grado, $grupo, $materia, $hora, $usuario);
 $stmt->execute();
 $res = $stmt->get_result();
 $cont = 1;
+
 while ($row = $res->fetch_assoc()) {
   $nombre = "{$row['apellido_paterno']} {$row['apellido_materno']} {$row['nombre']}";
   fputcsv($fp, [$cont++, $nombre, $row['asistencia'] ? 'Asistió' : 'Falta', $row['observacion']]);
 }
 fclose($fp);
+
+// Ruta pública para descarga
+$downloadPath = "../../../uploads/" . $filename;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -79,7 +110,7 @@ fclose($fp);
       <p><strong>Grado y grupo:</strong> <?= htmlspecialchars($grado) ?>°<?= htmlspecialchars($grupo) ?></p>
 
       <div style="margin-top:25px;">
-        <a href="<?= $path ?>" download class="btn-enviar">⬇️ Descargar Excel</a>
+        <a href="<?= $downloadPath ?>" download class="btn-enviar">⬇️ Descargar Excel</a>
         <a href="../../../docente/menu-docente.php" class="btn-toggle" style="margin-left:10px;">🏠 Menú principal</a>
       </div>
     </section>
