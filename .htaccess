@@ -1,0 +1,2 @@
+# Forzar zona horaria de PHP a CDMX
+php_value date.timezone "America/Mexico_City"

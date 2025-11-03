@@ -9,6 +9,8 @@ error_reporting(E_ALL);
 session_start();
 require_once __DIR__ . "/../../../conexion.php";
 date_default_timezone_set('America/Mexico_City');
+echo "<!-- Zona horaria actual: " . date_default_timezone_get() . " -->";
+
 
 // =======================================
 // Validar sesión
@@ -33,6 +35,24 @@ $observaciones = $_POST['observacion'] ?? [];
 
 if (!$materia || !$hora || !$grado || !$grupo) {
   die("Datos incompletos");
+}
+// ===============================
+// Asegurar que todos los alumnos se registren
+// ===============================
+$alumnos = [];
+$resultAlumnos = $conn->prepare("SELECT usuario FROM usuarios WHERE tipo='alumno' AND grado=? AND grupo=? ORDER BY apellido_paterno, apellido_materno, nombre");
+$resultAlumnos->bind_param("is", $grado, $grupo);
+$resultAlumnos->execute();
+$res = $resultAlumnos->get_result();
+while ($r = $res->fetch_assoc()) {
+  $alumnos[] = $r['usuario'];
+}
+
+// Combinar: si no está en $asistencias, marcar falta (0)
+foreach ($alumnos as $mat) {
+  if (!isset($asistencias[$mat])) {
+    $asistencias[$mat] = 0;
+  }
 }
 
 // =======================================
